@@ -1,0 +1,16 @@
+# This is a boilerplate parameters config generated for pipeline 'data_science'
+# using Kedro 0.18.2.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.18.2/kedro_project_setup/configuration.html#parameters
+
+model_options:
+  test_size: 0.2
+  val_size: 0.25
+  random_state: 42
+  features:
+    - Distance (km)
+    - Average Speed (km/h)
+    - Calories Burned
+    - Climb (m)
+    - Average Heart rate (tpm)

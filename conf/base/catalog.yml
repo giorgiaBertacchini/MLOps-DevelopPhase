@@ -1,0 +1,36 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
+
+activities:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/DATA.csv
+
+preprocessed_activities:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/preprocessed_activities.csv
+  versioned: true
+
+model_input_table:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/model_input_table.csv
+  versioned: true
+
+regressor:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/regressor.pickle
+  versioned: true
+
+#plot_feature_importance_img:
+#  type: matplotlib.MatplotlibWriter
+#  filepath: data/08_reporting/plot_feature_importance.png
+#  versioned: true
+
+metrics:
+  type: tracking.MetricsDataSet
+  filepath: data/09_tracking/metrics.json
+
+activities_columns:
+  type: tracking.JSONDataSet
+  filepath: data/09_tracking/activities_columns.json
