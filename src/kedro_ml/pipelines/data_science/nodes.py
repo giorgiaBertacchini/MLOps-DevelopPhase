@@ -9,6 +9,7 @@ from typing import Dict, Tuple
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error, max_error
 # from sklearn import metrics
@@ -56,6 +57,22 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series) -> RandomForestRegres
     logger.info("Model has a accurancy of %.3f on train data.", train_score)
     
     return regressor
+
+
+def cross_validation(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
+    """Function to perform a simple Cross-Validation
+    
+    Args:
+        regressor: Trained model.
+        X_val: Validation data of independent features.
+        y_val: Validation data for quality.
+    
+    Returns:
+       Score from validation.
+    """
+    scores = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
+         
+    return {"mean_score(accurancy)": scores.mean(), "standard_deviation": scores.std()}
     
 
 def evaluate_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> Dict[str, float]:
@@ -64,7 +81,7 @@ def evaluate_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
     Args:
         regressor: Trained model.
         X_test: Testing data of independent features.
-        y_test: Testing data for price.
+        y_test: Testing data for quality.
 
     Returns:
         Values from predict.

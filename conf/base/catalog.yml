@@ -22,6 +22,11 @@ model_input_table:
   filepath: data/04_feature/model_input_table.csv
   versioned: true
 
+scores:
+  type: tracking.MetricsDataSet
+  filepath: data/05_model_input/scores.json
+  versioned: true
+
 regressor:
   type: pickle.PickleDataSet
   filepath: data/06_models/regressor.pickle
