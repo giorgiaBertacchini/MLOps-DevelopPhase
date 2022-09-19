@@ -7,6 +7,11 @@ activities:
   type: pandas.CSVDataSet
   filepath: data/01_raw/DATA.csv
 
+exploration_activities:
+  type: tracking.MetricsDataSet
+  filepath: data/02_intermediate/exploration_activities.json
+  versioned: true
+
 preprocessed_activities:
   type: pandas.CSVDataSet
   filepath: data/03_primary/preprocessed_activities.csv

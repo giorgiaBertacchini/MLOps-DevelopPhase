@@ -5,7 +5,7 @@ generated using Kedro 0.18.2
 
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import create_model_input_table, preprocess_activities
+from .nodes import exploration_activities, create_model_input_table, preprocess_activities
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
@@ -15,6 +15,12 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs="activities",
                 outputs=["preprocessed_activities", "activities_columns"],
                 name="preprocess_activities_node",
+            ),
+            node(
+                func=exploration_activities,
+                inputs="activities",
+                outputs="exploration_activities",
+                name="exploration_activities_node",
             ),
             node(
                 func=create_model_input_table,
