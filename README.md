@@ -1,3 +1,21 @@
+# MLOps with kedro and GitHub Actions
+
+## branch master
+Without GitHub Actions
+
+## branch experiment
+* Plot feature importance 
+
+## branch experiment-1
+* Plot feature importance 
+* Plot residuals
+* cross validation
+
+## branch LinearRegression
+* Plot residuals
+* difference TODO
+
+
 # kedro_ml
 
 ## Overview
