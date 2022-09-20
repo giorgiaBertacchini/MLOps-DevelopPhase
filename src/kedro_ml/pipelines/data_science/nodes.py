@@ -10,9 +10,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error, max_error
-# from sklearn import metrics
+from sklearn import metrics
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -59,42 +57,27 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series) -> RandomForestRegres
     return regressor
 
 
-def cross_validation(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
-    """Function to perform a simple Cross-Validation
-    
-    Args:
-        regressor: Trained model.
-        X_val: Validation data of independent features.
-        y_val: Validation data for quality.
-    
-    Returns:
-       Score from validation.
-    """
-    scores = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
-         
-    return {"mean_score(accurancy)": scores.mean(), "standard_deviation": scores.std()}
-    
-
-def evaluate_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> Dict[str, float]:
+def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
     """Calculates and logs the coefficient of determination.
 
     Args:
         regressor: Trained model.
-        X_test: Testing data of independent features.
-        y_test: Testing data for quality.
+        X_val: Valuate data of independent features.
+        y_val: Valuate data for quality.
 
     Returns:
         Values from predict.
     """
-    score = regressor.score(X_test, y_test) * 100
-    y_pred = regressor.predict(X_test)
-    mae = mean_absolute_error(y_test, y_pred)
-    # TODO: metrics.mean_squared_error(y_test, predictions)
-    me = max_error(y_test, y_pred)
+    scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
+    score = regressor.score(X_val, y_val) * 100
+    y_pred = regressor.predict(X_val)
+    mae = metrics.mean_absolute_error(y_val, y_pred)
+    mse = metrics.mean_squared_error(y_val, y_pred)
+    me = metrics.max_error(y_val, y_pred)
     
     logger = logging.getLogger(__name__)
     logger.info("Model has a accurancy of %.3f on test data.", score)
-    return {"r2_score": score, "mae": mae, "max_error": me}
+    return {"mean_score(accurancy)": scores_cross.mean(), "standard_deviation": scores_cross.std(), "r2_score": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
 
 def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame) -> int:
