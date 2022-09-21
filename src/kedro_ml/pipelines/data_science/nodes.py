@@ -70,10 +70,9 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     Returns:
         Values from predict.
     """
-    # scores_cross is the accuracy score which is normalized i.e between the value from 0-1, 
-    # where 0 means none of the output were accurate and 1 means every prediction was accurate.
+    # score returns the coefficient of determination of the prediction. Best possible score is 1.0, lower values are worse.
     #scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
-    scores_cross = cross_val_score(regressor, X_val, y_val, cv=5)
+    score = regressor.score(X_val, y_val) * 100
 
     y_pred = regressor.predict(X_val)
     # MAE to measure errors between the predicted value and the true value.
@@ -84,8 +83,8 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     me = metrics.max_error(y_val, y_pred)
     
     logger = logging.getLogger(__name__)
-    logger.info("Model has a accurancy of %.3f on validation data.", scores_cross.mean())
-    return {"mean_score(accurancy)": scores_cross.mean(), "standard_deviation": scores_cross.std(), "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
+    logger.info("Model has a accurancy of %.3f on validation data.", score)
+    return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
 
 def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> RandomForestRegressor:
@@ -102,8 +101,7 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     Returns:
         Values from testing versions.
     """
-    test_scores_cross = cross_val_score(regressor, X_test, y_test, cv=5)
-    test_standard_deviation = test_scores_cross.std()
+    test_accuracy = regressor.score(X_test, y_test) * 100
     y_pred = regressor.predict(X_test)
     test_mae = metrics.mean_absolute_error(y_test, y_pred)
     test_mse = metrics.mean_squared_error(y_test, y_pred)
@@ -111,27 +109,24 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
 
     # See older versions data
     change_version = 'current version'
-    actual_mean = (test_standard_deviation + test_mae + test_mse + test_me)/4    
-    versions_differnce = {'current version': actual_mean}
+    #TODO
+    versions_differnce = {'current version': test_accuracy}
 
     for root, dirnames, filenames in os.walk(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json')):
         for dirname in dirnames:
             with open(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json', dirname , 'metrics.json'), "r") as f:
                 old_data = json.load(f)
-                old_mean = old_data['standard_deviation']
-                old_mean += old_data['mean_absolute_error']
-                old_mean += old_data['mean_squared_error']
-                old_mean += old_data['max_error']
-                old_mean /= 4
-                versions_differnce[dirname] = old_mean
+                versions_differnce[dirname] = old_data['accurancy']
 
-                if (old_mean < actual_mean):
-                    actual_mean = old_mean
+                if (old_data['accurancy'] > test_accuracy):
+                    test_accuracy = old_data['accurancy']
                     change_version = dirname
-                
+    
     if (change_version != 'current version'):
-        print("ATTENTION!!!\nCHANGE MODEL VERSION INTO: ", change_version)
-        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version , 'regressor.pickle'),"rb"))    
+        logger = logging.getLogger(__name__)
+        logger.info("ATTENTION!!!\nCHANGE MODEL VERSION INTO:  %s.", change_version)
+        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version , 'regressor.pickle'),"rb"))   
+     
     versions_differnce["best_version"] = change_version
 
     logger = logging.getLogger(__name__)
@@ -164,7 +159,8 @@ def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame
     ax.set_title('Random forest\nfeature importance', fontsize = title_fs)
 
     plt.tight_layout()
-    plt.savefig("feature_importance.png",dpi=120) 
+    #plt.savefig("feature_importance.png",dpi=120) 
+    plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','feature_importance.png'), dpi=120)
     plt.close()
 
     return 0
@@ -199,6 +195,6 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
     plt.xlim((-2,12))
 
     plt.tight_layout()
-    plt.savefig("residuals.png",dpi=120) 
+    plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)
 
     return 0
