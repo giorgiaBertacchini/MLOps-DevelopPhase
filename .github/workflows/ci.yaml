@@ -28,6 +28,14 @@ jobs:
       run: |
         kedro run
         
+    - name: Run Kedro ipython
+      env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        kedro ipython
+        print(catalog.load("activities").haed())
+        exit()
+        
     - name: Create CML report
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
