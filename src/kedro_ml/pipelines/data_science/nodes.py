@@ -2,9 +2,11 @@
 This is a boilerplate pipeline 'data_science'
 generated using Kedro 0.18.2
 """
-
+from kedro.io import *
 import logging
+
 from typing import Dict, Tuple
+import yaml, os, json, pickle
 
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
@@ -68,16 +70,74 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     Returns:
         Values from predict.
     """
-    scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
-    score = regressor.score(X_val, y_val) * 100
+    # scores_cross is the accuracy score which is normalized i.e between the value from 0-1, 
+    # where 0 means none of the output were accurate and 1 means every prediction was accurate.
+    #scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
+    scores_cross = cross_val_score(regressor, X_val, y_val, cv=5)
+
     y_pred = regressor.predict(X_val)
+    # MAE to measure errors between the predicted value and the true value.
     mae = metrics.mean_absolute_error(y_val, y_pred)
+    # MSE to average squared difference between the predicted value and the true value.
     mse = metrics.mean_squared_error(y_val, y_pred)
+    # ME to capture the worst-case error between the predicted value and the true value.
     me = metrics.max_error(y_val, y_pred)
     
     logger = logging.getLogger(__name__)
-    logger.info("Model has a accurancy of %.3f on test data.", score)
-    return {"mean_score(accurancy)": scores_cross.mean(), "standard_deviation": scores_cross.std(), "r2_score": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
+    logger.info("Model has a accurancy of %.3f on validation data.", scores_cross.mean())
+    return {"mean_score(accurancy)": scores_cross.mean(), "standard_deviation": scores_cross.std(), "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
+
+
+def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> RandomForestRegressor:
+    """Diagnose the source issue when they fail. Testing code, data, models.
+        Unit testing, integration testing.
+        Performing the final “Model Acceptance Test” by using the hold backtest dataset to estimate the generalization error
+        compare the model with its previous version
+
+     Args:
+        regressor: Trained model.
+        X_test: Test data of independent features.
+        y_test: Test data for quality.
+
+    Returns:
+        Values from testing versions.
+    """
+    test_scores_cross = cross_val_score(regressor, X_test, y_test, cv=5)
+    test_standard_deviation = test_scores_cross.std()
+    y_pred = regressor.predict(X_test)
+    test_mae = metrics.mean_absolute_error(y_test, y_pred)
+    test_mse = metrics.mean_squared_error(y_test, y_pred)
+    test_me = metrics.max_error(y_test, y_pred)
+
+    # See older versions data
+    change_version = 'current version'
+    actual_mean = (test_standard_deviation + test_mae + test_mse + test_me)/4    
+    versions_differnce = {'current version': actual_mean}
+
+    for root, dirnames, filenames in os.walk(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json')):
+        for dirname in dirnames:
+            with open(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json', dirname , 'metrics.json'), "r") as f:
+                old_data = json.load(f)
+                old_mean = old_data['standard_deviation']
+                old_mean += old_data['mean_absolute_error']
+                old_mean += old_data['mean_squared_error']
+                old_mean += old_data['max_error']
+                old_mean /= 4
+                versions_differnce[dirname] = old_mean
+
+                if (old_mean < actual_mean):
+                    actual_mean = old_mean
+                    change_version = dirname
+                
+    if (change_version != 'current version'):
+        print("ATTENTION!!!\nCHANGE MODEL VERSION INTO: ", change_version)
+        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version , 'regressor.pickle'),"rb"))    
+    versions_differnce["best_version"] = change_version
+
+    logger = logging.getLogger(__name__)
+    logger.info("Best model version is %s.", change_version)
+
+    return versions_differnce
 
 
 def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame) -> int:
@@ -108,6 +168,7 @@ def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame
     plt.close()
 
     return 0
+
 
 def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> int:
     """Create plot of residuals and save into png

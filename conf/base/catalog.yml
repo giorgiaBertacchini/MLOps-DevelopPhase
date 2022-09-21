@@ -44,3 +44,7 @@ metrics:
 activities_columns:
   type: tracking.JSONDataSet
   filepath: data/09_tracking/activities_columns.json
+
+test_difference:
+  type: tracking.JSONDataSet
+  filepath: data/10_testing/test_difference.json
