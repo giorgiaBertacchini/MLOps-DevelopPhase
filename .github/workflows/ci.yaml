@@ -38,7 +38,7 @@ jobs:
         
         #cat data/01_raw/DATA.csv >> report.md
         cat data/last_version.txt > version
-        v = "data/09_tracking/metrics.json/${version}/metrics.json"
+        echo "data/09_tracking/metrics.json/${version}/metrics.json" > v
         echo "${v}"
         #cat data/09_tracking/metrics.json | underscore select '.Messages .Body' >> report.md
         
