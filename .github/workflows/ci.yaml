@@ -39,7 +39,7 @@ jobs:
         #cat data/01_raw/DATA.csv >> report.md
         cat data/last_version.txt > version
         echo "data/09_tracking/metrics.json/${version}/metrics.json" > v
-        echo "${v}"
+        cat v >> report.md
         #cat data/09_tracking/metrics.json | underscore select '.Messages .Body' >> report.md
         
         cml-send-comment report.md
