@@ -86,7 +86,6 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     logger.info("Model has a accurancy of %.3f on validation data.", score)
     return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
-
 def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> RandomForestRegressor:
     """Diagnose the source issue when they fail. Testing code, data, models.
         Unit testing, integration testing.
@@ -108,21 +107,25 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     test_me = metrics.max_error(y_test, y_pred)
 
     # See older versions data
-    change_version = 'current version'
+    change_version = 'test version'
     #TODO
-    versions_differnce = {'current version': test_accuracy}
+    versions_differnce = {'test version': test_accuracy}
 
     for root, dirnames, filenames in os.walk(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json')):
         for dirname in dirnames:
             with open(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json', dirname , 'metrics.json'), "r") as f:
                 old_data = json.load(f)
                 versions_differnce[dirname] = old_data['accurancy']
-
+                
                 if (old_data['accurancy'] > test_accuracy):
                     test_accuracy = old_data['accurancy']
                     change_version = dirname
     
-    if (change_version != 'current version'):
+    # Write directory name last version 
+    with open("data/last_version.txt", 'w') as outfile:
+        outfile.write(dirname)
+
+    if (change_version != 'test version'):
         logger = logging.getLogger(__name__)
         logger.info("ATTENTION!!!\nCHANGE MODEL VERSION INTO:  %s.", change_version)
         regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version , 'regressor.pickle'),"rb"))   
@@ -130,7 +133,7 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     versions_differnce["best_version"] = change_version
 
     logger = logging.getLogger(__name__)
-    logger.info("Best model version is %s.", change_version)
+    logger.info("Best model version is %s.", change_version)    
 
     return versions_differnce
 
