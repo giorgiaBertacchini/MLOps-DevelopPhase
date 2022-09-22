@@ -37,8 +37,7 @@ jobs:
         cml-publish data/08_reporting/residuals.png --md >> report.md
         
         #cat data/01_raw/DATA.csv >> report.md
-        echo "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" > v
-        cat v >> report.md
-        #cat data/09_tracking/metrics.json | underscore select '.Messages .Body' >> report.md
+        #echo "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" > v
+        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" | underscore select '.Messages .Body' >> report.md
         
         cml-send-comment report.md
