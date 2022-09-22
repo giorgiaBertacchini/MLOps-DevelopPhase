@@ -32,14 +32,11 @@ jobs:
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |        
+        echo "## Data metrics" >> report.md
+        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md
+        
         echo "## Data viz" >> report.md
         cml-publish data/08_reporting/feature_importance.png --md >> report.md
         cml-publish data/08_reporting/residuals.png --md >> report.md
-        
-        #cat data/01_raw/DATA.csv >> report.md
-        #echo "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" > v
-        #cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" | underscore select '.Messages .Body' >> report.md
-        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md
-        cat "data/04_feature/model_input_table.csv/$( cat data/last_version.txt )/model_input_table.csv" >> report.md
-        
+              
         cml-send-comment report.md
