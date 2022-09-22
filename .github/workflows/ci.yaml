@@ -32,7 +32,7 @@ jobs:
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |        
-        echo "## Data metrics" >> report.md
+        echo "## Data metrics" > report.md
         cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md
         
         echo "## Data viz" >> report.md
