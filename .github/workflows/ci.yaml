@@ -36,6 +36,7 @@ jobs:
         cml-publish data/08_reporting/feature_importance.png --md >> report.md
         cml-publish data/08_reporting/residuals.png --md >> report.md
         
-        cat data/01_raw/DATA.csv >> report.md
+        #cat data/01_raw/DATA.csv >> report.md
+        cat data/09_tracking/metrics.json | underscore select '.Messages .Body' >> report.md
         
         cml-send-comment report.md
