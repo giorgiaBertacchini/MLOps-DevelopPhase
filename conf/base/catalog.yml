@@ -37,6 +37,34 @@ regressor:
 #  filepath: data/08_reporting/plot_feature_importance.png
 #  versioned: true
 
+plot_feature_importance_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/08_reporting/plot_feature_importance_img.json
+  plotly_args:
+    type: bar
+    fig:
+      x: importance
+      y: feature
+      orientation: h
+    layout:
+      xaxis_title: importance
+      yaxis_title: feature
+      title: Importance for feature
+
+plot_residuals_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/08_reporting/plot_residuals_img.json
+  plotly_args:
+    type: scatter
+    fig:
+      x: true_
+      y: pred
+      orientation: h
+    layout:
+      xaxis_title: True activities quality
+      yaxis_title: Predicted activities quality
+      title: Residuals
+
 metrics:
   type: tracking.MetricsDataSet
   filepath: data/09_tracking/metrics.json

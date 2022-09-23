@@ -138,7 +138,7 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     return versions_differnce
 
 
-def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame) -> int:
+def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame) -> pd.DataFrame:
     """Create plot of feature importance and save into png
 
      Args:
@@ -166,10 +166,10 @@ def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','feature_importance.png'), dpi=120)
     plt.close()
 
-    return 0
+    return feature_data
 
 
-def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> int:
+def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> pd.DataFrame:
     """Create plot of residuals and save into png
     A residual is a measure of how far away a point is vertically from the regression line. 
     Simply, it is the error between a predicted value and the observed actual value.
@@ -181,12 +181,12 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
     """
     y_pred = regressor.predict(X_test) + np.random.normal(0,0.25,len(y_test))
     y_jitter = y_test + np.random.normal(0,0.25,len(y_test))
-    res_df = pd.DataFrame(list(zip(y_jitter,y_pred)), columns = ["true","pred"])
+    res_df = pd.DataFrame(list(zip(y_jitter,y_pred)), columns = ["true_","pred"])
 
     axis_fs = 16 #fontsize
     title_fs = 22 #fontsize
 
-    ax = sns.scatterplot(x="true", y="pred",data=res_df)
+    ax = sns.scatterplot(x="true_", y="pred",data=res_df)
     ax.set_aspect('equal')
     ax.set_xlabel('True activities quality',fontsize = axis_fs) 
     ax.set_ylabel('Predicted activities quality', fontsize = axis_fs)#ylabel
@@ -200,4 +200,4 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
     plt.tight_layout()
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)
 
-    return 0
+    return res_df

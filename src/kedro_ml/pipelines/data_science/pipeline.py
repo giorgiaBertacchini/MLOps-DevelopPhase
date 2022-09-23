@@ -39,13 +39,13 @@ def create_pipeline(**kwargs) -> Pipeline:
                 func=plot_feature_importance,
                 inputs=["regressor", "model_input_table"],
                 name="plot_feature_importance_node", 
-                outputs="plot_feature_importance_img", #TODO
+                outputs="plot_feature_importance_img",
             ),
             node(
                 func=plot_residuals,
                 inputs=["regressor", "X_test", "y_test"],
                 name="plot_residuals_node", 
-                outputs="plot_residuals_img", #TODO
+                outputs="plot_residuals_img",
             ),
         ]
     )
