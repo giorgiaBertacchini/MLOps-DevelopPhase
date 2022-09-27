@@ -40,6 +40,7 @@ regressor:
 plot_feature_importance_img:
   type: plotly.PlotlyDataSet
   filepath: data/08_reporting/plot_feature_importance_img.json
+  versioned: true
   plotly_args:
     type: bar
     fig:
@@ -54,6 +55,7 @@ plot_feature_importance_img:
 plot_residuals_img:
   type: plotly.PlotlyDataSet
   filepath: data/08_reporting/plot_residuals_img.json
+  versioned: true
   plotly_args:
     type: scatter
     fig:
