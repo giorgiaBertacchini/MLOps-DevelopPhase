@@ -70,11 +70,14 @@ plot_residuals_img:
 metrics:
   type: tracking.MetricsDataSet
   filepath: data/09_tracking/metrics.json
+  versioned: true
 
 activities_columns:
   type: tracking.JSONDataSet
   filepath: data/09_tracking/activities_columns.json
+  versioned: true
 
 test_difference:
   type: tracking.JSONDataSet
   filepath: data/10_testing/test_difference.json
+  versioned: true
