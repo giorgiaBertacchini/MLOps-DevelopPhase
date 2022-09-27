@@ -7,9 +7,10 @@ Without GitHub Actions
 * Plot feature importance 
 
 ## branch experiment-1
+It is the version complete. Without mlflow.
 * Plot feature importance 
 * Plot residuals
-* cross validation
+* Data versioned
 
 ## branch LinearRegression
 * Plot residuals
