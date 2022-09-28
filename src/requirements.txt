@@ -16,3 +16,4 @@ scikit-learn
 matplotlib
 seaborn
 numpy
+mlflow
