@@ -8,6 +8,7 @@ model_options:
   test_size: 0.2
   val_size: 0.25
   random_state: 42
+  max_depth: 2
   features:
     - Distance (km)
     - Average Speed (km/h)

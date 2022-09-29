@@ -1,0 +1,11 @@
+name: kedro mlflow
+channels:
+  - defaults
+dependencies:
+  - python
+  - pip
+  - pip:
+      - kedro
+      - mlflow
+      - scikit-learn
+      - pandas

@@ -15,8 +15,11 @@ from sklearn.model_selection import cross_val_score
 from sklearn import metrics
 
 import matplotlib.pyplot as plt
+from datetime import datetime
 import seaborn as sns
 import numpy as np
+import mlflow
+from mlflow import sklearn
 
 
 def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
@@ -37,7 +40,7 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     return X_train, X_test, X_val, y_train, y_test, y_val
 
 
-def train_model(X_train: pd.DataFrame, y_train: pd.Series) -> RandomForestRegressor:
+def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> RandomForestRegressor:
     """Trains the model.
 
     Args:
@@ -47,8 +50,18 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series) -> RandomForestRegres
     Returns:
         Trained model.
     """
-    regressor = RandomForestRegressor(max_depth=2, random_state=42)
+    #mlflow.set_experiment('activities-example')
+    mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
+
+    regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
     regressor.fit(X_train, y_train)
+
+    # saving model
+    sklearn.log_model(sk_model=regressor, artifact_path="model")
+
+    # logging params
+    mlflow.log_param('max_depth', parameters["max_depth"])
+    mlflow.log_param('random_state', parameters["random_state"])
 
     # Report training set score
     train_score = regressor.score(X_train, y_train) * 100
@@ -84,6 +97,16 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     
     logger = logging.getLogger(__name__)
     logger.info("Model has a accurancy of %.3f on validation data.", score)
+
+    # logging evaluation metrics
+    mlflow.log_metric("accuracy", score)
+    mlflow.log_metric("mean_absolute_erro", mae)
+    mlflow.log_metric("mean_squared_error", mse)
+    mlflow.log_metric("max_error", me)
+    mlflow.log_param("time of prediction", str(datetime.now()))
+    mlflow.set_tag("Model Type", "Random Forest")
+    #mlflow.set_tag("Model Version", 25)
+
     return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
 def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> RandomForestRegressor:
@@ -124,11 +147,14 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     # Write directory name last version 
     with open("data/last_version.txt", 'w') as outfile:
         outfile.write(dirname)
+    
+    mlflow.log_artifact(local_path=os.path.join("data", "02_intermediate", "exploration_activities.json", dirname ,"exploration_activities.json"))
+    mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
 
     if (change_version != 'test version'):
         logger = logging.getLogger(__name__)
         logger.info("ATTENTION!!!\nCHANGE MODEL VERSION INTO:  %s.", change_version)
-        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version , 'regressor.pickle'),"rb"))   
+        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version, 'regressor.pickle'),"rb"))   
      
     versions_differnce["best_version"] = change_version
 
@@ -199,5 +225,8 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
 
     plt.tight_layout()
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)
+
+    mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
+    mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png"))
 
     return res_df
