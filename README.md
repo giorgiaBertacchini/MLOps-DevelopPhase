@@ -48,4 +48,4 @@ You can run ui as follows:
 mlflow ui
 ```
 
-To see the mlflow ui go to the `270.0.0.:5000` browser page.
+To see the mlflow ui go to the `270.0.0.1:5000` browser page.
