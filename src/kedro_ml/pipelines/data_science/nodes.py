@@ -6,12 +6,12 @@ from kedro.io import *
 import logging
 
 from typing import Dict, Tuple
-import yaml, os, json, pickle
+import os, json, pickle
 
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import GridSearchCV
 from sklearn import metrics
 
 import matplotlib.pyplot as plt
@@ -49,10 +49,41 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
 
     Returns:
         Trained model.
-    """
+    """    
     #mlflow.set_experiment('activities-example')
     mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 
+    regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
+    regressor.fit(X_train, y_train)
+
+    ############################
+    ## Hyperparameters Tuning ##
+    ############################
+
+    # define search space
+    space = dict()
+    space['max_depth'] = [1,2,3]
+    space['random_state'] = [40,41,42,43]
+
+    # define search
+    search = GridSearchCV(regressor, space, scoring='neg_mean_absolute_error')
+    # execute search
+    result = search.fit(X_train, y_train)
+
+    # summarize result
+    logger = logging.getLogger(__name__)
+    logger.info("Hyperparameters tuning. Best Score: %s", result.best_score_)
+    logger.info("Hyperparameters tuning. Best Hyperparameters: %s", result.best_params_)
+    
+    ####################
+    ## Training model ##
+    ####################
+
+    # update parameters
+    parameters["max_depth"] = result.best_params_["max_depth"]
+    parameters["random_state"] = result.best_params_["random_state"]
+
+    #update model
     regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
     regressor.fit(X_train, y_train)
 
@@ -66,7 +97,6 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     # Report training set score
     train_score = regressor.score(X_train, y_train) * 100
 
-    logger = logging.getLogger(__name__)
     logger.info("Model has a accurancy of %.3f on train data.", train_score)
     
     return regressor
@@ -106,8 +136,9 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     mlflow.log_param("time of prediction", str(datetime.now()))
     mlflow.set_tag("Model Type", "Random Forest")
     #mlflow.set_tag("Model Version", 25)
-
+    
     return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
+
 
 def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> RandomForestRegressor:
     """Diagnose the source issue when they fail. Testing code, data, models.
