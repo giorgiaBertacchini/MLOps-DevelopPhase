@@ -29,7 +29,7 @@ conda activate env_name
 You can run mlflow project with:
 
 ```
-mlflow run .
+mlflow run . --experiment-name activities-example
 ```
 
 ## How to run mlflow project in Windows
@@ -37,7 +37,7 @@ mlflow run .
 You can run mlflow project with:
 
 ```
-mlflow run . --no-conda
+mlflow run . --experiment-name activities-example --no-conda
 ```
 
 ## How to vizualize mlflow project
