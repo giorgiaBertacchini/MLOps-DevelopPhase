@@ -21,6 +21,7 @@ import numpy as np
 import mlflow
 from mlflow import sklearn
 
+import bentoml
 
 def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     """Splits data into features and targets training (60%), test (20%) and validation (20%) sets.
@@ -185,8 +186,15 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     if (change_version != 'test version'):
         logger = logging.getLogger(__name__)
         logger.info("ATTENTION!!!\nCHANGE MODEL VERSION INTO:  %s.", change_version)
-        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version, 'regressor.pickle'),"rb"))   
+        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version, 'regressor.pickle'),"rb"))
+        dirname = change_version
+        #TODO cambia davvero?
      
+    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))
+    bentoml.mlflow.import_model(
+        "my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname)
+        )
+
     versions_differnce["best_version"] = change_version
 
     logger = logging.getLogger(__name__)
