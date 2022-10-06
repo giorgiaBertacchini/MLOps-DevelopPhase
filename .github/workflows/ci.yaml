@@ -46,6 +46,6 @@ jobs:
         cml-publish data/08_reporting/residuals.png --md >> report.md
         
         echo "# Data accuracy" >> report.md
-        #dvc plots show "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" -y accurancy
+        dvc plots show -y accurancy data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json
               
         cml-send-comment report.md
