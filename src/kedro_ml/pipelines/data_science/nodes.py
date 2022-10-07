@@ -163,6 +163,8 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     # See older versions data
     best_version = 'new version'
 
+    versions_differnce = {}
+
     for root, dirnames, filenames in os.walk(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json')):
         for dirname in dirnames:
             with open(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json', dirname , 'metrics.json'), "r") as f:
@@ -177,7 +179,7 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     with open("data/last_version.txt", 'w') as outfile:
         outfile.write(dirname)
     
-    versions_differnce = {dirname: test_accuracy}
+    versions_differnce[dirname] = test_accuracy
 
     mlflow.log_artifact(local_path=os.path.join("data", "02_intermediate", "exploration_activities.json", dirname ,"exploration_activities.json"))
     mlflow.log_artifact(local_path=os.path.join("data", "03_primary", "preprocessed_activities.csv", dirname ,"preprocessed_activities.csv"))
