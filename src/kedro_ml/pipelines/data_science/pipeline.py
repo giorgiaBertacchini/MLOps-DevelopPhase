@@ -5,7 +5,7 @@ generated using Kedro 0.18.2
 
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import evaluate_model, split_data, train_model, testing_model, plot_feature_importance, plot_residuals
+from .nodes import evaluate_model, plot_differences, split_data, train_model, testing_model, plot_feature_importance, plot_residuals
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -46,6 +46,12 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs=["regressor", "X_test", "y_test"],
                 name="plot_residuals_node", 
                 outputs="plot_residuals_img",
+            ),
+            node(
+                func=plot_differences,
+                inputs=["test_difference"],
+                name="plot_differences_node", 
+                outputs="plot_differences_img",
             ),
         ]
     )

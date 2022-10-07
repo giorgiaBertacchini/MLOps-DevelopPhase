@@ -81,3 +81,18 @@ test_difference:
   type: tracking.JSONDataSet
   filepath: data/10_testing/test_difference.json
   versioned: true
+
+plot_differences_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/10_testing/plot_differences_img.json
+  versioned: true
+  plotly_args:
+    type: scatter
+    fig:
+      x: versions
+      y: accurancy
+      orientation: h
+    layout:
+      xaxis_title: versions
+      yaxis_title: accurancy
+      title: Accurancies between versions

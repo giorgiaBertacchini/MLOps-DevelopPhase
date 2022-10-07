@@ -92,6 +92,8 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     sklearn.log_model(sk_model=regressor, artifact_path="model")
 
     # logging params
+    mlflow.log_param('test_size', parameters["test_size"])
+    mlflow.log_param('val_size', parameters["val_size"])
     mlflow.log_param('max_depth', parameters["max_depth"])
     mlflow.log_param('random_state', parameters["random_state"])
 
@@ -157,14 +159,9 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     """
     test_accuracy = regressor.score(X_test, y_test) * 100
     y_pred = regressor.predict(X_test)
-    test_mae = metrics.mean_absolute_error(y_test, y_pred)
-    test_mse = metrics.mean_squared_error(y_test, y_pred)
-    test_me = metrics.max_error(y_test, y_pred)
 
     # See older versions data
-    change_version = 'test version'
-    #TODO
-    versions_differnce = {'test version': test_accuracy}
+    best_version = 'new version'
 
     for root, dirnames, filenames in os.walk(os.path.join("files", os.getcwd(),'data','09_tracking','metrics.json')):
         for dirname in dirnames:
@@ -174,31 +171,30 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
                 
                 if (old_data['accurancy'] > test_accuracy):
                     test_accuracy = old_data['accurancy']
-                    change_version = dirname
+                    best_version = dirname
     
     # Write directory name last version 
     with open("data/last_version.txt", 'w') as outfile:
         outfile.write(dirname)
     
+    versions_differnce = {dirname: test_accuracy}
+
     mlflow.log_artifact(local_path=os.path.join("data", "02_intermediate", "exploration_activities.json", dirname ,"exploration_activities.json"))
+    mlflow.log_artifact(local_path=os.path.join("data", "03_primary", "preprocessed_activities.csv", dirname ,"preprocessed_activities.csv"))
     mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
-
-    if (change_version != 'test version'):
-        logger = logging.getLogger(__name__)
-        logger.info("ATTENTION!!!\nCHANGE MODEL VERSION INTO:  %s.", change_version)
-        regressor=pickle.load(open(os.path.join("files", os.getcwd(),'data','06_models','regressor.pickle', change_version, 'regressor.pickle'),"rb"))
-        dirname = change_version
-        #TODO cambia davvero?
-     
-    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))
-    bentoml.mlflow.import_model(
-        "my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname)
-        )
-
-    versions_differnce["best_version"] = change_version
+    mlflow.set_tag("Model Version", dirname)
+    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))    
+    bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
 
     logger = logging.getLogger(__name__)
-    logger.info("Best model version is %s.", change_version)    
+    if (best_version != 'new version'):
+        logger.info("ATTENTION!!!\nMODEL VERSION  %s have best metrics.", best_version)
+        mlflow.set_tag("Is Model Version Best", "No")
+        mlflow.set_tag("Model Version with best metrics", best_version)
+    else:
+        mlflow.set_tag("Is Model Version Best", "Yes")
+        mlflow.set_tag("Model Version with best metrics", "-")
+        logger.info("This model version is the best.")
 
     return versions_differnce
 
@@ -258,14 +254,44 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
     ax.set_title('Residuals', fontsize = title_fs)
 
     # Make it pretty- square aspect ratio
-    #ax.plot([1, 10], [1, 10], 'black', linewidth=1)
+    ax.plot()
     plt.ylim((3,7))
     plt.xlim((-2,12))
 
     plt.tight_layout()
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)
+    plt.close()
 
     mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
     mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png"))
 
     return res_df
+
+def plot_differences(test_difference: json) -> pd.DataFrame:
+    """Create plot of residuals and save into png
+    A residual is a measure of how far away a point is vertically from the regression line. 
+    Simply, it is the error between a predicted value and the observed actual value.
+
+     Args:
+        regressor: Trained model.
+        X_test: Testing data of independent features.
+        y_test: Testing data for price.
+    """
+
+    xAxis = [key for key, value in test_difference.items()]
+    yAxis = [value for key, value in test_difference.items()]
+    diff_df = pd.DataFrame(list(zip(xAxis,yAxis)), columns = ["versions","accurancy"])
+
+    ## BAR GRAPH ##
+    fig = plt.figure()
+    plt.bar(xAxis,yAxis, color='green')
+    plt.xlabel('versions')
+    plt.ylabel('accurancy')
+    plt.title('Accurancies between versions')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.savefig(os.path.join("files", os.getcwd(),'data','10_testing','plot_difference.png'), dpi=120)
+
+    mlflow.log_artifact(local_path=os.path.join("data", "10_testing", "plot_difference.png"))
+
+    return diff_df
