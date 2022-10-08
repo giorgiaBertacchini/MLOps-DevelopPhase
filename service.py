@@ -1,22 +1,16 @@
 import bentoml
 import numpy as np
 import pandas as pd
-from bentoml.io import NumpyNdarray, PandasDataFrame, JSON
-from pydantic import BaseModel
+from bentoml.io import NumpyNdarray, PandasDataFrame
 
-class Activity(BaseModel):
-    Distance: float = 26.91
-    AverageSpeed: float = 11.08
-    CaloriesBurned: float = 1266
-    Climb: float = 98
-    AverageHeartrate: float = 121
+from pydantic import BaseModel
 
 model_runner = bentoml.mlflow.get('my_model:latest').to_runner()
 
 svc = bentoml.Service('activities_model', runners=[ model_runner ])
 
 @svc.api(
-    input=PandasDataFrame(), 
+    input=PandasDataFrame(),
     output=NumpyNdarray())
 def predict(input_data: pd.DataFrame):
     """
