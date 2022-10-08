@@ -82,18 +82,24 @@ bentoml models get <name_model>:<number_version>
 bentoml build
 ```
 
+## Start Bento model in production
+
+```
+bentoml serve <name_model>:latest --production
+```
+
 ## Run Bento Server
 
 If use Windows run this without `-- reload`:
 
 ```
-bentoml serve servize:svc --reload
+bentoml serve service:svc --reload
 ```
 
 or more general:
 
 ```
-bentoml server
+bentoml serve
 ```
 
 After you can open a web page `127.0.0.1:3000` to have a model serving.
@@ -103,10 +109,16 @@ After you can open a web page `127.0.0.1:3000` to have a model serving.
 To containerize:
 
 ```
-bentoml containerize <name_model>
+bentoml containerize <name_model>:latest
 ```
 
 To run the docker model:
+
+```
+docker run <name_model>
+```
+
+or to production:
 
 ```
 docker run <name_model> serve --production
