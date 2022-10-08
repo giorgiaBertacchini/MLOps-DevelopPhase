@@ -184,6 +184,7 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     mlflow.log_artifact(local_path=os.path.join("data", "03_primary", "preprocessed_activities.csv", dirname ,"preprocessed_activities.csv"))
     mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
     mlflow.set_tag("Model Version", dirname)
+    mlflow.set_tag("mlflow.runName", dirname)
     mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))    
     bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
 
