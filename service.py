@@ -6,8 +6,10 @@ from bentoml.io import NumpyNdarray, PandasDataFrame
 from pydantic import BaseModel
 
 model_runner = bentoml.mlflow.get('my_model:latest').to_runner()
+title = '%s' %bentoml.mlflow.get('my_model:latest').tag
+t = title.replace(":", "-")
 
-svc = bentoml.Service('activities_model', runners=[ model_runner ])
+svc = bentoml.Service(t, runners=[ model_runner ])
 
 @svc.api(
     input=PandasDataFrame(),

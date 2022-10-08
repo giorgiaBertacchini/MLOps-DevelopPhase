@@ -138,7 +138,6 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     mlflow.log_metric("max_error", me)
     mlflow.log_param("time of prediction", str(datetime.now()))
     mlflow.set_tag("Model Type", "Random Forest")
-    #mlflow.set_tag("Model Version", 25)
     
     return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
