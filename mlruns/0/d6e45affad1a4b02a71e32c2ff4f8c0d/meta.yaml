@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/d6e45affad1a4b02a71e32c2ff4f8c0d/artifacts
+end_time: 1665390679893
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: d6e45affad1a4b02a71e32c2ff4f8c0d
+run_uuid: d6e45affad1a4b02a71e32c2ff4f8c0d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1665390542363
+status: 3
+tags: []
+user_id: giorg
