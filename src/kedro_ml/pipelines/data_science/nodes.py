@@ -134,7 +134,7 @@ def evaluate_model(regressor: LinearRegression, X_val: pd.DataFrame, y_val: pd.S
     mlflow.log_metric("mean_squared_error", mse)
     mlflow.log_metric("max_error", me)
     mlflow.log_param("time of prediction", str(datetime.now()))
-    mlflow.set_tag("Model Type", "Random Forest")
+    mlflow.set_tag("Model Type", "Linear Regression")
     
     return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
@@ -219,7 +219,7 @@ def plot_feature_importance(regressor: LinearRegression, data: pd.DataFrame) -> 
     #for i,v in enumerate(importance):
     #    logger.info('Feature: %0d, Score: %.5f' % (i,v))
     
-    # Calculate feature importance in random forest
+    # Calculate feature importance in linear regression
     feature_data = pd.DataFrame(list(zip(labels, importance)), columns = ["feature","importance"])
     feature_data = feature_data.sort_values(by='importance', ascending=False,)
     
