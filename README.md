@@ -1,4 +1,4 @@
-# kedro_ml, mlflow and Bentoml project
+# kedro_ml, mlflow and Bentoml project - LinearRegression
 
 ## Overview
 
