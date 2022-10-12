@@ -14,14 +14,24 @@ To install, run:
 pip install dvc
 ```
 
-To sharing data:
+To update data:
 
 ```
-dvc push data\01_raw\DATA.csv
+dvc remove data/01_raw/DATA.csv.dvc 
 ```
+
 ```
-dvc pull data\01_raw\DATA.csv
+dvc add data/01_raw/DATA.csv
 ```
+
+We can see in folder .dvc/cache/ in the corrispective folder there are the data .dvc
+
+```
+dvc push data/01_raw/DATA.csv
+```
+
+Now in drive or data updated or there are a new folder with the new data version.
+
 
 # mlflow
 
