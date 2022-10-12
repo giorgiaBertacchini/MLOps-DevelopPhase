@@ -1,8 +1,27 @@
-# kedro_ml, mlflow and Bentoml project
+# kedro_ml, DVC, mlflow and Bentoml project
 
 ## Overview
 
-This is new Kedro project with mlflow and Bentoml.
+This is new Kedro project with DVC, mlflow and Bentoml.
+
+# DVC
+
+It is for Data Versioning.
+
+To install, run: 
+
+```
+pip install dvc
+```
+
+To sharing data:
+
+```
+dvc push
+```
+```
+dvc pull
+```
 
 # mlflow
 
