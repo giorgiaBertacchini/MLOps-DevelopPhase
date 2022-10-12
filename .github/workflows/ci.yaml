@@ -26,16 +26,10 @@ jobs:
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        kedro run
-        
-    - name: Run DVC
-      env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |               
-        dvc remove data/01_raw/DATA.csv.dvc
-        dvc add data/01_raw/DATA.csv  
-        dvc push data/01_raw/DATA.csv
-        
+        conda create -n my_env python=3.7
+        conda activate my_env
+        mlflow run . --experiment-name activities-example
+                
     - name: Create CML report - metrics
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
