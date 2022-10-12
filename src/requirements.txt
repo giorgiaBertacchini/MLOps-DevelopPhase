@@ -18,4 +18,5 @@ seaborn
 numpy
 mlflow
 bentoml
+conda
 dvc
