@@ -26,9 +26,7 @@ jobs:
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        conda create -n my_env python=3.7
-        conda activate my_env
-        mlflow run . --experiment-name activities-example
+        kedro run
                 
     - name: Create CML report - metrics
       env:
