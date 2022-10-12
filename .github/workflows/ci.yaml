@@ -27,15 +27,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         kedro run
-        
-    - name: Run DVC
-      env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |               
-        dvc remove data/01_raw/DATA.csv.dvc
-        dvc add data/01_raw/DATA.csv  
-        dvc push data/01_raw/DATA.csv
-        
+                
     - name: Create CML report - metrics
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
