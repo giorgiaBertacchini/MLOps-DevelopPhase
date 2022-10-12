@@ -31,12 +31,7 @@ jobs:
     - name: Run DVC
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        #git rm -r --cached data/01_raw/DATA.csv
-        #git commit -m "stop tracking data/01_raw/DATA.csv"
-        #git push
-        
-        # If the data raw changed, update hash of DATA.csv.dvc
+      run: |               
         dvc remove data/01_raw/DATA.csv.dvc
         dvc add data/01_raw/DATA.csv  
         dvc push data/01_raw/DATA.csv
