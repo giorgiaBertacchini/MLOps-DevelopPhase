@@ -1,8 +1,9 @@
 artifact_uri: file:///C:/Users/giorg/Documents/GitHub/MLOps%20kedro%20-%20track%20-%20su%20git/MLOps-kedro-auto/mlruns/1/78aeab74bc0e4052b9ef193676bdd8e6/artifacts
+deleted_time: 1665560362393
 end_time: 1665398749498
 entry_point_name: ''
 experiment_id: '1'
-lifecycle_stage: active
+lifecycle_stage: deleted
 name: ''
 run_id: 78aeab74bc0e4052b9ef193676bdd8e6
 run_uuid: 78aeab74bc0e4052b9ef193676bdd8e6
