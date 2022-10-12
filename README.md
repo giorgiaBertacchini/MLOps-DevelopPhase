@@ -32,6 +32,10 @@ dvc push data/01_raw/DATA.csv
 
 Now in drive or data updated or there are a new folder with the new data version.
 
+## Set remote storage
+
+Set the `url` in the file `.dvc/config`
+
 
 # mlflow
 
@@ -80,6 +84,11 @@ mlflow ui
 ```
 
 To see the mlflow ui go to the `270.0.0.1:5000` browser page.
+
+## Set hyperparameters
+
+Set hyperparameter in file `conf/base/parameters/data_science.yml`
+
 
 # Bentoml
 
