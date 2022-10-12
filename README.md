@@ -2,7 +2,7 @@
 
 The last versions, in branches:
 * `experiment-bentoml`
-*` experiment-bentoml-LinearRegression`
+* `experiment-bentoml-LinearRegression`
 
 ## branch `master`
 * Without GitHub Actions
