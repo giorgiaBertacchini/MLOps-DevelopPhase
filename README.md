@@ -17,10 +17,10 @@ pip install dvc
 To sharing data:
 
 ```
-dvc push
+dvc push data\01_raw\DATA.csv
 ```
 ```
-dvc pull
+dvc pull data\01_raw\DATA.csv
 ```
 
 # mlflow
