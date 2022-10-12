@@ -1,21 +1,25 @@
 # MLOps with kedro and GitHub Actions
 
-## branch master
-Without GitHub Actions
+The last versions, in branches:
+* `experiment-bentoml`
+*` experiment-bentoml-LinearRegression`
 
-## branch experiment
-* Plot feature importance 
+## branch `master`
+* Without GitHub Actions
 
-## branch experiment-1
+## branch `experiment-1`
 It is the version without mlflow.
 
-## branch bentoml
-It is the version complete. With mlflow and bentoml.
+## branch `experiment-mlflow`
+It is the version with mlflow.
 
-## branch bentoml-LinearRegression
-It is the version complete. With mlflow and bentoml.
+## branch `experiment-bentoml`
+It is the version with mlflow and bentoml.
+
+## branch `experiment-bentoml-LinearRegression`
+It is the version with mlflow and bentoml.
 Difference:
-* LinearRegression model
+* `LinearRegression` model
 
 
 # Istruction kedro_ml
