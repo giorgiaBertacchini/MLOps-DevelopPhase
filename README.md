@@ -7,14 +7,15 @@ Without GitHub Actions
 * Plot feature importance 
 
 ## branch experiment-1
-It is the version complete. Without mlflow.
-* Plot feature importance 
-* Plot residuals
-* Data versioned
+It is the version without mlflow.
 
-## branch LinearRegression
-* Plot residuals
-* difference TODO
+## branch bentoml
+It is the version complete. With mlflow and bentoml.
+
+## branch bentoml-LinearRegression
+It is the version complete. With mlflow and bentoml.
+Difference:
+* LinearRegression model
 
 
 # Istruction kedro_ml
