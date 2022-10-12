@@ -9,7 +9,7 @@ from typing import Dict, Tuple
 import os, json, pickle
 
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn import metrics
@@ -32,6 +32,8 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     Returns:
         Split data.
     """
+    
+    
     X = data[parameters["features"]]
     y = data["Quality"]
 
@@ -41,7 +43,7 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     return X_train, X_test, X_val, y_train, y_test, y_val
 
 
-def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> RandomForestRegressor:
+def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> LinearRegression:
     """Trains the model.
 
     Args:
@@ -54,26 +56,23 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     #mlflow.set_experiment('activities-example')
     mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 
-    regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
+    regressor = LinearRegression()
     regressor.fit(X_train, y_train)
 
     ############################
     ## Hyperparameters Tuning ##
     ############################
 
-    # define search space
-    space = dict()
-    space['max_depth'] = [1,2,3]
-    space['random_state'] = [40,41,42,43]
+    # use GridSearchCV
+    space = {'fit_intercept':[True,False], 'copy_X':[True, False]}
 
-    # define search
-    search = GridSearchCV(regressor, space, scoring='neg_mean_absolute_error')
     # execute search
+    search = GridSearchCV(regressor, space, cv=None)
     result = search.fit(X_train, y_train)
 
-    # summarize result
+    #  give the values of hyperparameters as a result
     logger = logging.getLogger(__name__)
-    logger.info("Hyperparameters tuning. Best Score: %s", result.best_score_)
+    logger.info("Results from Grid Search")
     logger.info("Hyperparameters tuning. Best Hyperparameters: %s", result.best_params_)
     
     ####################
@@ -81,11 +80,11 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     ####################
 
     # update parameters
-    parameters["max_depth"] = result.best_params_["max_depth"]
-    parameters["random_state"] = result.best_params_["random_state"]
+    parameters["fit_intercept"] = result.best_params_["fit_intercept"]
+    parameters["copy_X"] = result.best_params_["copy_X"]
 
     #update model
-    regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
+    regressor = LinearRegression(fit_intercept=parameters["fit_intercept"], copy_X=parameters["copy_X"])
     regressor.fit(X_train, y_train)
 
     # saving model
@@ -94,18 +93,19 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     # logging params
     mlflow.log_param('test_size', parameters["test_size"])
     mlflow.log_param('val_size', parameters["val_size"])
-    mlflow.log_param('max_depth', parameters["max_depth"])
     mlflow.log_param('random_state', parameters["random_state"])
+    mlflow.log_param('fit_intercept', parameters["fit_intercept"])
+    mlflow.log_param('copy_X', parameters["copy_X"])
 
     # Report training set score
     train_score = regressor.score(X_train, y_train) * 100
-
+    
     logger.info("Model has a accurancy of %.3f on train data.", train_score)
     
     return regressor
 
 
-def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
+def evaluate_model(regressor: LinearRegression, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
     """Calculates and logs the coefficient of determination.
 
     Args:
@@ -117,7 +117,6 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
         Values from predict.
     """
     # score returns the coefficient of determination of the prediction. Best possible score is 1.0, lower values are worse.
-    #scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
     score = regressor.score(X_val, y_val) * 100
 
     y_pred = regressor.predict(X_val)
@@ -137,12 +136,12 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     mlflow.log_metric("mean_squared_error", mse)
     mlflow.log_metric("max_error", me)
     mlflow.log_param("time of prediction", str(datetime.now()))
-    mlflow.set_tag("Model Type", "Random Forest")
+    mlflow.set_tag("Model Type", "Linear Regression")
     
     return {"accurancy": score, "mean_absolute_error": mae, "mean_squared_error": mse, "max_error": me}
 
 
-def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> RandomForestRegressor:
+def testing_model(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd.Series) -> LinearRegression:
     """Diagnose the source issue when they fail. Testing code, data, models.
         Unit testing, integration testing.
         Performing the final “Model Acceptance Test” by using the hold backtest dataset to estimate the generalization error
@@ -185,8 +184,10 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
     mlflow.set_tag("Model Version", dirname)
     mlflow.set_tag("mlflow.runName", dirname)
-    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))    
-    bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
+    # save in directory my_model
+    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))  
+    
+    bentoml.mlflow.import_model("my_model", model_uri = os.path.join(os.getcwd(), 'my_model', dirname))
 
     logger = logging.getLogger(__name__)
     if (best_version != 'new version'):
@@ -201,17 +202,27 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     return versions_differnce
 
 
-def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame) -> pd.DataFrame:
+def plot_feature_importance(regressor: LinearRegression, data: pd.DataFrame) -> pd.DataFrame:
     """Create plot of feature importance and save into png
 
      Args:
         regressor: Trained model.
         data: Data containing features and target.
+
+    Returns:
+        DataFrame of plot.
     """
-    # Calculate feature importance in random forest
-    importances = regressor.feature_importances_
+    # get importance
+    importance = regressor.coef_
     labels = data.columns
-    feature_data = pd.DataFrame(list(zip(labels, importances)), columns = ["feature","importance"])
+
+    # summarize feature importance
+    #logger = logging.getLogger(__name__)
+    #for i,v in enumerate(importance):
+    #    logger.info('Feature: %0d, Score: %.5f' % (i,v))
+    
+    # Calculate feature importance in linear regression
+    feature_data = pd.DataFrame(list(zip(labels, importance)), columns = ["feature","importance"])
     feature_data = feature_data.sort_values(by='importance', ascending=False,)
     
     # image formatting
@@ -222,17 +233,16 @@ def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame
     ax = sns.barplot(x="importance", y="feature", data=feature_data)
     ax.set_xlabel('Importance',fontsize = axis_fs) 
     ax.set_ylabel('Feature', fontsize = axis_fs)#ylabel
-    ax.set_title('Random forest\nfeature importance', fontsize = title_fs)
-
+    ax.set_title('LinearRegression\nfeature importance', fontsize = title_fs)
+    
     plt.tight_layout()
-    #plt.savefig("feature_importance.png",dpi=120) 
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','feature_importance.png'), dpi=120)
     plt.close()
 
     return feature_data
 
 
-def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test: pd.Series) -> pd.DataFrame:
+def plot_residuals(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd.Series) -> pd.DataFrame:
     """Create plot of residuals and save into png
     A residual is a measure of how far away a point is vertically from the regression line. 
     Simply, it is the error between a predicted value and the observed actual value.
@@ -241,6 +251,9 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
         regressor: Trained model.
         X_test: Testing data of independent features.
         y_test: Testing data for price.
+    
+    Returns:
+        DataFrame of plot.
     """
     y_pred = regressor.predict(X_test) + np.random.normal(0,0.25,len(y_test))
     y_jitter = y_test + np.random.normal(0,0.25,len(y_test))
@@ -270,14 +283,13 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
     return res_df
 
 def plot_differences(test_difference: json) -> pd.DataFrame:
-    """Create plot of residuals and save into png
-    A residual is a measure of how far away a point is vertically from the regression line. 
-    Simply, it is the error between a predicted value and the observed actual value.
+    """Create plot of differences between versions and save into png.
 
-     Args:
-        regressor: Trained model.
-        X_test: Testing data of independent features.
-        y_test: Testing data for price.
+    Args:
+        test_difference: data of differences between versions about accurancy.
+
+    Returns:
+        DataFrame of plot.
     """
 
     xAxis = [key for key, value in test_difference.items()]

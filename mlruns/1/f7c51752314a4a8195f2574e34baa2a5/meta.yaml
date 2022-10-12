@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/giorg/Documents/GitHub/MLOps%20kedro%20-%20track%20-%20su%20git/MLOps-kedro-auto/mlruns/1/f7c51752314a4a8195f2574e34baa2a5/artifacts
+end_time: 1665588354154
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: f7c51752314a4a8195f2574e34baa2a5
+run_uuid: f7c51752314a4a8195f2574e34baa2a5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1665588303475
+status: 4
+tags: []
+user_id: giorg

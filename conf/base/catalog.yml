@@ -6,6 +6,7 @@
 activities:
   type: pandas.CSVDataSet
   filepath: data/01_raw/DATA.csv
+  #versioned: true
 
 exploration_activities:
   type: tracking.MetricsDataSet
