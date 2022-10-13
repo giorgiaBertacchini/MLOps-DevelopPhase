@@ -16,20 +16,34 @@ pip install kedro-docker
 ## Docker image
 
 To create a docker image:
-```
-kedro docker init
-```
-```
-kedro docker build
-```
 
-## Run project
+```
+kedro docker build --image <image-name>
+```
 
 To run the project in a Docker environment:
 
 ```
-kedro docker run
+kedro docker run --image <image-name>
 ```
+
+## Use container registry
+
+Tag your image on your local machine:
+```
+docker tag <image-name> <DockerID>/<image-name>
+```
+
+Push the image to Docker hub:
+```
+docker push <DockerID>/<image-name>
+```
+
+Pull the image from Docker hub onto your production server:
+```
+docker pull <DockerID>/<image-name>
+```
+
 
 # DVC
 
