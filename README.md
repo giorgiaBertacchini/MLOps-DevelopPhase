@@ -21,6 +21,11 @@ It is the version with mlflow and bentoml.
 Difference:
 * `LinearRegression` model
 
+## branch `experiment-dvc`
+It is the version with mlflow and bentoml. With dvc.
+
+## branch `experiment-kedro-docker`
+It is the version with mlflow and bentoml. With dvc and Dockerfile.
 
 # Istruction kedro_ml
 
