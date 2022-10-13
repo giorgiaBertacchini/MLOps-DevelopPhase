@@ -68,6 +68,11 @@ plot_residuals_img:
       yaxis_title: Predicted activities quality
       title: Residuals
 
+hyperparameters:
+  type: tracking.JSONDataSet
+  filepath: data/09_tracking/hyperparameters.json
+  versioned: true
+
 metrics:
   type: tracking.MetricsDataSet
   filepath: data/09_tracking/metrics.json
