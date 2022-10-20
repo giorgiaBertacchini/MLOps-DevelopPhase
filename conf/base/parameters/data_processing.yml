@@ -3,3 +3,12 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.2/kedro_project_setup/configuration.html#parameters
+
+table_columns:
+  header:
+    - Distance (km)
+    - Average Speed (km/h)
+    - Calories Burned
+    - Climb (m)
+    - Average Heart rate (tpm)
+    - Quality

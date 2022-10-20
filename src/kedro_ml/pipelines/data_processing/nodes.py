@@ -9,7 +9,8 @@ from kedro.extras.datasets.pandas import CSVDataSet
 
 def _validation(apps: pd.DataFrame) -> pd.DataFrame:
     # Check data Format
-    apps['Date'] = pd.to_datetime(apps['Date'])
+    if 'Date' in apps.columns:
+        apps['Date'] = pd.to_datetime(apps['Date'])
     # Check value ranges
     for x in apps.index:
         if apps.loc[x, "Distance (km)"] > 30:
@@ -33,7 +34,8 @@ def _wrangling(apps: pd.DataFrame) -> pd.DataFrame:
     apps.dropna(inplace = True)
 
     # Rename 'Other' type to 'Walking'
-    apps['Type'] = apps['Type'].str.replace('Other', 'Walking')
+    if 'Type' in apps.columns:
+        apps['Type'] = apps['Type'].str.replace('Other', 'Walking')
 
     return apps
 
@@ -68,7 +70,7 @@ def exploration_activities(activities: pd.DataFrame) -> Dict[str, float]:
     return {"total number of values":  totalNumber, "max distance": maxDistance, "mean average speed": meanAverageSpeed, "min average heart rate": minAverageHeartRate}
 
 
-def create_model_input_table(activities: pd.DataFrame ) -> pd.DataFrame:
+def create_model_input_table(activities: pd.DataFrame, parameters: Dict) -> pd.DataFrame:
     """Combines all data to create a model input table.
 
     Args:
@@ -79,9 +81,10 @@ def create_model_input_table(activities: pd.DataFrame ) -> pd.DataFrame:
         model input table.
 
     """
-   
+    
     # Delete unnecessary columns
-    cols_to_clean = ['Activity ID', 'Date', 'Type', 'Duration']
-    activities.drop(cols_to_clean, axis=1, inplace=True)
+    for column in activities.columns:
+        if column not in parameters["header"]:
+            activities.drop(column, axis=1, inplace=True)
 
     return activities
