@@ -4,6 +4,9 @@
 
 This is new Kedro project with DVC, mlflow, Bentoml and kedro-docker.
 
+## test:
+* bentoml containerize...
+
 # kedro-docker
 
 It is a plugin to create a Docker image and run kedro project in a Docker environment.
