@@ -30,7 +30,6 @@ def predict(input_data: pd.DataFrame):
     """
 
     input_data, dict_col = preprocess_activities(input_data)
-    print("Terminate the preprocessing of input data.")
 
     parameters = {
         "header": [
@@ -42,6 +41,6 @@ def predict(input_data: pd.DataFrame):
             "Quality"]
     }
     input_data = create_model_input_table(input_data, parameters)
-    print("Terminate the dropping of useless columns.")
+    
     print("Start the prediction...")
     return model_runner.predict.run(input_data)

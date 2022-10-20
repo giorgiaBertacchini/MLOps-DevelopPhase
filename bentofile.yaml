@@ -1,5 +1,6 @@
 service: "service:svc"
 include:
   - "service.py"
+  - "src/kedro_ml/pipelines/data_processing/nodes.py"
 conda:
   environment_yml: "./conda.yaml"

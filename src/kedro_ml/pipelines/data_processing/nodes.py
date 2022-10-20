@@ -46,7 +46,7 @@ def preprocess_activities(activities: pd.DataFrame) -> Tuple[pd.DataFrame, Dict]
     Args:
         activities: Raw data.
     Returns:
-        Preprocessed data.
+        Preprocessed data and JSON file.
     """
     activities = _validation(activities)
     activities = _wrangling(activities)
@@ -71,18 +71,16 @@ def exploration_activities(activities: pd.DataFrame) -> Dict[str, float]:
 
 
 def create_model_input_table(activities: pd.DataFrame, parameters: Dict) -> pd.DataFrame:
-    """Combines all data to create a model input table.
+    """Delete unnecessary columns.
 
     Args:
-        shuttles: Preprocessed data for shuttles.
         activities: Preprocessed data for activities.
-        reviews: Raw data for reviews.
+        parameters: usefull columns names.
     Returns:
         model input table.
 
     """
-    
-    # Delete unnecessary columns
+
     for column in activities.columns:
         if column not in parameters["header"]:
             activities.drop(column, axis=1, inplace=True)
