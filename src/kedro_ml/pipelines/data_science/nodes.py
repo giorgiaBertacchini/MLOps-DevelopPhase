@@ -168,7 +168,7 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
                     best_version = dirname
     
     # Write directory name last version 
-    with open("data/last_version.txt", 'w') as outfile:
+    with open(os.path.join(os.getcwd(), 'data', "last_version.txt"), 'w') as outfile:
         outfile.write(dirname)
     
     versions_differnce[dirname] = test_accuracy
@@ -178,13 +178,16 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
     mlflow.set_tag("Model Version", dirname)
     mlflow.set_tag("mlflow.runName", dirname)
-    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))    
+    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))   
+    with open(os.path.join(os.getcwd(), 'my_model', dirname, "MLmodel"), 'a') as model_file:        
+        model_file.write("model_version: {}".format(dirname))
+
     bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
 
     logger = logging.getLogger(__name__)
     if (best_version != 'new version'):
         logger.info("ATTENTION!!!\nMODEL VERSION  %s have best metrics.", best_version)
-        mlflow.set_tag("Is Model Version Best", "No")
+        mlflow.set_tag("Is Model Version Best", "No")        
         mlflow.set_tag("Model Version with best metrics", best_version)
     else:
         mlflow.set_tag("Is Model Version Best", "Yes")
