@@ -5,7 +5,7 @@ import pandas as pd
 from bentoml.io import NumpyNdarray, PandasDataFrame
 from src.kedro_ml.pipelines.data_processing.nodes import preprocess_activities, create_model_input_table
 
-from pydantic import BaseModel
+#from pydantic import BaseModel
 
 
 model_runner = bentoml.mlflow.get('my_model:latest').to_runner()
