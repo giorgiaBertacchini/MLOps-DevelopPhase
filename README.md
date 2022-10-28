@@ -1,8 +1,7 @@
 # MLOps with kedro and GitHub Actions
 
 The last versions, in branches:
-* `experiment-bentoml`
-* `experiment-bentoml-LinearRegression`
+* `experiment-dockerize`
 
 ## branch `master`
 * Without GitHub Actions
@@ -26,6 +25,9 @@ It is the version with mlflow and bentoml. With dvc.
 
 ## branch `experiment-kedro-docker`
 It is the version with mlflow and bentoml. With dvc and Dockerfile.
+
+## branch `experiment-kedro-docker`
+It is the version with mlflow and bentoml. With dvc and Dockerfile and kedro-docker setting.
 
 # Istruction kedro_ml
 
