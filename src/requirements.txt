@@ -20,3 +20,5 @@ mlflow
 bentoml
 dvc
 kedro-docker
+requests
+flask

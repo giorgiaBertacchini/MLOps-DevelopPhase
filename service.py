@@ -9,6 +9,12 @@ from src.kedro_ml.pipelines.data_processing.nodes import preprocess_activities, 
 
 
 model_runner = bentoml.mlflow.get('my_model:latest').to_runner()
+#title = '%s' %bentoml.mlflow.get('activities_model:latest').tag
+
+#stri = bentoml.mlflow.get('my_model:latest').path
+#with open('versione_ok.txt', 'w') as f:
+#    f.write("what ", title)
+
 #title = '%s' %bentoml.mlflow.get('my_model:latest').tag
 #t = title.replace(":", "-")
 
@@ -48,16 +54,16 @@ def predict(input_data: pd.DataFrame):
     return model_runner.predict.run(input_data)
 
 
-def clean_data(input_data: pd.DataFrame):
-    parameters = {
-        "header": [
-            "Distance (km)",
-            "Average Speed (km/h)" ,
-            "Calories Burned",
-            "Climb (m)",
-            "Average Heart rate (tpm)",
-            "Quality"
-        ]
-    }
-    input_data = create_model_input_table(input_data, parameters)
-    return input_data
+#def clean_data(input_data: pd.DataFrame):
+#    parameters = {
+#        "header": [
+#            "Distance (km)",
+#            "Average Speed (km/h)" ,
+#            "Calories Burned",
+#            "Climb (m)",
+#            "Average Heart rate (tpm)",
+#            "Quality"
+#        ]
+#    }
+#    input_data = create_model_input_table(input_data, parameters)
+#    return input_data
