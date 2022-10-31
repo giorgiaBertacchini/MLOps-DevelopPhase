@@ -15,8 +15,6 @@ def _validation(apps: pd.DataFrame) -> pd.DataFrame:
     for x in apps.index:
         if apps.loc[x, "Distance (km)"] > 30:
             apps.loc[x, "Distance (km)"] = 30
-        if apps.loc[x, "Average Speed (km/h)"] > 60:
-            apps.loc[x, "Average Speed (km/h)"] = 60
         if apps.loc[x, "Average Heart rate (tpm)"] < 60:
             apps.loc[x, "Average Heart rate (tpm)"] = 60
     apps.drop_duplicates(inplace = True)

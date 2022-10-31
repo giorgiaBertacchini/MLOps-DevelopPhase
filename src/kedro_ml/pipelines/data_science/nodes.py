@@ -61,7 +61,7 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     # define search space
     space = dict()
     space['max_depth'] = [1,2,3]
-    space['random_state'] = [40,41,42,43]
+    space['random_state'] = [41,42,43,44]
 
     # define search
     search = GridSearchCV(regressor, space, scoring='neg_mean_absolute_error')
@@ -251,8 +251,8 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
 
     # Make it pretty- square aspect ratio
     ax.plot()
-    plt.ylim((3,7))
-    plt.xlim((-2,12))
+    #plt.ylim((3,7))
+    #plt.xlim((-2,12))
 
     plt.tight_layout()
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)
