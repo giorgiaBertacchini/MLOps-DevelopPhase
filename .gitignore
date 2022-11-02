@@ -14,7 +14,7 @@ conf/**/*credentials*
 # ignore everything in the following folders
 #data/**
 logs/**
-data/01_raw/DATA.csv
+#data/01_raw/DATA.csv
 
 # except their sub-folders
 !data/**/

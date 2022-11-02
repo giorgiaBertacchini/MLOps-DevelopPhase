@@ -3,13 +3,19 @@ import os
 import sys
 from typing import List
 import shutil
+import pandas as pd
 
 def setup_logger():
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s", handlers=[logging.StreamHandler()]
     )
 
-def update_data(url: str):
+def update_data(dataset: pd.DataFrame):
+    logging.info("Load new dataset in project.")
+    #shutil.copyfile(url, './data/01_raw/DATA.csv')
+    dataset.to_csv('./data/01_raw/DATA.csv', index=False)
+
+def update_data_url(url: str):
     logging.info("Load new dataset in project.")
     shutil.copyfile(url, './data/01_raw/DATA.csv')
 
@@ -62,7 +68,7 @@ def main(arg: List):
         if len(arg) != 3:
             logging.info("Error!! Need the global url.")
             return
-        update_data(arg[2])
+        update_data_url(arg[2])
     else:
         logging.info("Error!!\n     Arg can be: 'pipeline', 'exp', 'pipeline-docker', 'run', 'dataset'.")
         return
