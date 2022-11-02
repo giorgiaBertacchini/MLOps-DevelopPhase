@@ -33,13 +33,16 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |        
         echo "## Data metrics" > report.md
-        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md     
+        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md   
+        
+        echo "## Last version" > report.md
+        cat data/last_version.txt >> report.md   
         
         echo "## Hyperparametes" > report.md
-        cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
+        #cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
         
         echo "## Hyperparametes" > report.md
-        cat "data/09_tracking/activities_columns.json/$( cat data/last_version.txt )/activities_columns.json" >> report.md   
+        #cat "data/09_tracking/activities_columns.json/$( cat data/last_version.txt )/activities_columns.json" >> report.md   
 
         cml-send-comment report.md
         
