@@ -27,6 +27,10 @@ def dvc_run():
     os.system("dvc add data/01_raw/DATA.csv")
     os.system("dvc push data/01_raw/DATA.csv")
 
+    #os.system("git add data/01_raw/DATA.csv")
+    #os.system("git commit -m 'start new data.csv'")
+    #os.system("git push ")
+
 def kedro_docker_set():
     logging.info("Create docker image of Kedro pipeline.")
     os.system("kedro docker build --image pipeline-kedro")

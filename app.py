@@ -1,7 +1,13 @@
 from flask import Flask
 import flask
-from run import update_data, run_retrain, bentoml_set
 import pandas as pd
+import os
+import yaml
+import json
+
+from run import update_data, run_retrain, bentoml_set
+from src.kedro_ml.pipelines.data_processing.nodes import create_model_input_table
+
 
 app = Flask(__name__)
 
@@ -25,6 +31,16 @@ def retrain():
     return "ok"
 
 @app.get("/bento")
-def retrain():
+def bento():
     bentoml_set()
     return "ok"
+
+@app.get("/header")
+def header():    
+    with open(os.path.join("conf", "base", "parameters", "data_processing.yml"), "r") as f:
+        configuration = yaml.safe_load(f)    
+    with open('config.json', 'w') as json_file:
+        json.dump(configuration, json_file)    
+    output = json.load(open('config.json'))
+
+    return output["table_columns"]
