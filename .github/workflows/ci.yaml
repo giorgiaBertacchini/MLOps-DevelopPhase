@@ -42,7 +42,7 @@ jobs:
         #cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
         
         echo "## Hyperparametes" >> report.md
-        #cat "data/09_tracking/activities_columns.json/$( cat data/last_version.txt )/activities_columns.json" >> report.md   
+        cat "data/09_tracking/activities_columns.json/$( cat data/last_version.txt )/activities_columns.json" >> report.md   
 
         cml-send-comment report.md
         
@@ -54,7 +54,4 @@ jobs:
         cml-publish data/08_reporting/feature_importance.png --md >> report.md
         cml-publish data/08_reporting/residuals.png --md >> report.md
         
-        echo "# Data accuracy" >> report.md
-        #dvc plots show -y accurancy data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json
-              
         cml-send-comment report.md
