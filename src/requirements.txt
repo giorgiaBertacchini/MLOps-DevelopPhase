@@ -22,4 +22,4 @@ dvc
 kedro-docker
 requests
 flask
-dvc_gdrive
+#dvc_gdrive
