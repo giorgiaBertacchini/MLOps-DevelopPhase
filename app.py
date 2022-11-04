@@ -20,7 +20,7 @@ def get_dvc_file():
 def load_new_data():
     item = flask.request.json
     df_data = pd.DataFrame.from_dict(item)
-    print(df_data)
+    print(df_data.head())
     update_data(df_data)
     run_retrain()
     return "ok"
@@ -39,8 +39,8 @@ def bento():
 def header():    
     with open(os.path.join("conf", "base", "parameters", "data_processing.yml"), "r") as f:
         configuration = yaml.safe_load(f)    
-    with open('config.json', 'w') as json_file:
+    with open('temp.json', 'w') as json_file:
         json.dump(configuration, json_file)    
-    output = json.load(open('config.json'))
+    output = json.load(open('temp.json'))
 
     return output["table_columns"]

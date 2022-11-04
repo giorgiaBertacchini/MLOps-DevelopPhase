@@ -4,6 +4,7 @@ import sys
 from typing import List
 import shutil
 import pandas as pd
+import json, yaml
 
 def setup_logger():
     logging.basicConfig(
@@ -23,17 +24,16 @@ def dvc_run():
     logging.info("Run dvc to push dataset on Google Drive.")
     os.system("dvc remove data/01_raw/DATA.csv.dvc")
     os.system("git rm -r --cached data/01_raw/DATA.csv")
-    os.system("git commit -m stop")
+    #os.system("git commit -m stop")
     os.system("dvc add data/01_raw/DATA.csv")
     os.system("dvc push data/01_raw/DATA.csv")
 
-    #os.system("git add data/01_raw/DATA.csv")
+    os.system("git add data/01_raw/DATA.csv -f")
     #os.system("git commit -m 'start new data.csv'")
-    #os.system("git push ")
 
 def kedro_docker_set():
     logging.info("Create docker image of Kedro pipeline.")
-    os.system("kedro docker build --image pipeline-kedro")
+    os.system("kedro docker build --image pipeline-ml")
 
 def mlflow_run_onWindows():
     logging.info("Run mlflow command.")
