@@ -4,14 +4,56 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#tools">Getting Started</a>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#schema">Schema</a></li>
+        <li><a href="#built-with">Built With</a></li>        
+        <li><a href="#interactions-and-communication">Interactions And Communication</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#tools">Tools</a>
       <ul>
         <li><a href="#kedro-docker">kedro-docker</a></li>
         <li><a href="#dvc">DVC</a></li>
+        <li><a href="#mlflow">mlflow</a></li>
+        <li><a href="#bentoml">Bentoml</a></li>
+        <li><a href="#containerize">Containerize</a></li>
       </ul>
     </li>
   </ol>
 </details>
+
+# About The Project
+This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://observability.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
+
+## Schema
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/schema.png)
+
+## Built With
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/tools.png)
+
+## Interactions And Communication
+
+To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/run.png)
+
+For communication between this project and observability step, there is a flask application with avaible API:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/app.png)
+
+## Getting Started
+
+To run flask application: 
+
+```
+flask run --host=0.0.0.0 --port=3030
+```
+
 
 # Tools
 
@@ -56,7 +98,7 @@ docker pull <DockerID>/<image-name>
 ```
 
 
-# DVC
+## DVC
 
 It is for Data Versioning.
 
@@ -84,14 +126,14 @@ dvc push data/01_raw/DATA.csv
 
 Now in drive or data updated or there are a new folder with the new data version.
 
-## Set remote storage
+### Set remote storage
 
 Set the `url` in the file `.dvc/config`
 
 
-# mlflow
+## mlflow
 
-## Rules and guidelines
+### Rules and guidelines
 
 To install them, run:
 
@@ -99,7 +141,7 @@ To install them, run:
 pip install mlflow
 ```
 
-## Before activate conda environment
+### Before activate conda environment
 
 Need Python version 3.7.
 
@@ -111,7 +153,7 @@ conda create -n env_name python=3.7
 conda activate env_name
 ```
 
-## How to run mlflow project
+### How to run mlflow project
 
 You can run mlflow project with:
 
@@ -119,7 +161,7 @@ You can run mlflow project with:
 mlflow run . --experiment-name activities-example
 ```
 
-## How to run mlflow project in Windows
+### How to run mlflow project in Windows
 
 You can run mlflow project with:
 
@@ -127,7 +169,7 @@ You can run mlflow project with:
 mlflow run . --experiment-name activities-example --no-conda
 ```
 
-## How to vizualize mlflow project
+### How to vizualize mlflow project
 
 You can run ui as follows:
 
@@ -137,14 +179,14 @@ mlflow ui
 
 To see the mlflow ui go to the `270.0.0.1:5000` browser page.
 
-## Set hyperparameters
+### Set hyperparameters
 
 Set hyperparameter in file `conf/base/parameters/data_science.yml`
 
 
-# Bentoml
+## Bentoml
 
-## Rules and guidelines
+### Rules and guidelines
 
 To install run:
 
@@ -152,7 +194,7 @@ To install run:
 pip install bentoml
 ```
 
-## See
+### See
 
 To see all bento models:
 
@@ -166,19 +208,19 @@ To see more about a bento model:
 bentoml models get <name_model>:<number_version>
 ```
 
-## Build a bento model
+### Build a bento model
 
 ```
 bentoml build
 ```
 
-## Start Bento model in production
+### Start Bento model in production
 
 ```
 bentoml serve <name_model>:latest --production
 ```
 
-## Run Bento Server
+### Run Bento Server
 
 If use Windows run this without `-- reload`:
 
@@ -194,7 +236,7 @@ bentoml serve
 
 After you can open a web page `127.0.0.1:3000` to have a model serving.
 
-# Containerize
+## Containerize
 
 To containerize:
 
