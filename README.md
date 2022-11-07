@@ -1,10 +1,35 @@
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#schema">Schema</a></li>
+        <li><a href="#built-with">Built With</a></li>        
+        <li><a href="#interactions-and-communication">Interactions And Communication</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#tools">Tools</a>
+      <ul>
+        <li><a href="#kedro-docker">kedro-docker</a></li>
+        <li><a href="#dvc">DVC</a></li>
+        <li><a href="#mlflow">mlflow</a></li>
+        <li><a href="#bentoml">Bentoml</a></li>
+        <li><a href="#containerize">Containerize</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
+
 # About The Project
 This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
 
 ## Schema
-<img width="964" alt="Schema" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png">
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png?raw=true)
 
 ## Built With
 
