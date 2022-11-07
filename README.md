@@ -29,21 +29,21 @@ This project puts into practice the steps of MLOps and it is complete using the 
 
 ## Schema
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png?raw=true)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/schema.png)
 
 ## Built With
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/tools.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/tools.png)
 
 ## Interactions And Communication
 
 To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/run.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/run.png)
 
 For communication between this project and observability step, there is a flask application with avaible API:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/app.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/app.png)
 
 ## Getting Started
 
