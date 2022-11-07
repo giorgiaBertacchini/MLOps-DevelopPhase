@@ -182,9 +182,38 @@ mlflow ui
 
 To see the mlflow ui go to the `270.0.0.1:5000` browser page.
 
+Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
+
+
 ### Set hyperparameters
 
 Set hyperparameter in file `conf/base/parameters/data_science.yml`
+
+## Kedro
+
+### Rules and guidelines
+
+To install run:
+
+```
+pip install kedro
+```
+
+### How to vizualize kedro pipeline
+
+To see the kedro ui:
+
+```
+kedro viz
+```
+
+To see the mlflow ui go to the `270.0.0.1:4141` browser page.
+
+Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz.png)
 
 
 ## Bentoml
