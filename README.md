@@ -29,6 +29,7 @@
 This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
 
 ## Schema
+<img width="964" alt="Schema" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png">
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png)
 
