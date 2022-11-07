@@ -26,25 +26,25 @@
 </details>
 
 # About The Project
-This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://observability.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
+This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
 
 ## Schema
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/schema.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/schema.png)
 
 ## Built With
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/tools.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/tools.png)
 
 ## Interactions And Communication
 
 To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/run.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/run.png)
 
 For communication between this project and observability step, there is a flask application with avaible API:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/edit/experiment-dockerize/img_readme/app.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/tree/experiment-dockerize/img_readme/app.png)
 
 ## Getting Started
 
