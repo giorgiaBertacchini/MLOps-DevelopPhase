@@ -1,13 +1,21 @@
-# kedro_ml, DVC, mlflow and Bentoml project
 
-## Overview
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#tools">Getting Started</a>
+      <ul>
+        <li><a href="#kedro-docker">kedro-docker</a></li>
+        <li><a href="#dvc">DVC</a></li>
+      </ul>
+    </li>
+  </ol>
+</details>
 
-This is new Kedro project with DVC, mlflow, Bentoml and kedro-docker.
+# Tools
 
-## test:
-* bentoml containerize...
-
-# kedro-docker
+## kedro-docker
 
 It is a plugin to create a Docker image and run kedro project in a Docker environment.
 
@@ -16,7 +24,7 @@ To install, run:
 pip install kedro-docker
 ```
 
-## Docker image
+### Docker image
 
 To create a docker image:
 
@@ -30,7 +38,7 @@ To run the project in a Docker environment:
 kedro docker run --image <image-name>
 ```
 
-## Use container registry
+### Use container registry
 
 Tag your image on your local machine:
 ```
