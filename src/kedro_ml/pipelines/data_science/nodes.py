@@ -94,6 +94,16 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     mlflow.log_param('max_depth', parameters["max_depth"])
     mlflow.log_param('random_state', parameters["random_state"])
 
+    # logging name reference dataset (DATA.csv) in Google Drive
+    with open(os.path.join("files", os.getcwd(),'data','01_raw','DATA.csv.dvc', ), "r") as f:
+        lines = f.readlines()
+        count = 0
+        for line in lines:
+            if (count == 1):             
+                mlflow.set_tag('dataset_original', str(line)[7:])
+                break
+            count += 1
+
     # Report training set score
     train_score = regressor.score(X_train, y_train) * 100
 
