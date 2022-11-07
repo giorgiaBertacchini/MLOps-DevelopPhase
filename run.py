@@ -22,14 +22,14 @@ def update_data_url(url: str):
 
 def dvc_run():
     logging.info("Run dvc to push dataset on Google Drive.")
-    os.system("dvc remove data/01_raw/DATA.csv.dvc")
     os.system("git rm -r --cached data/01_raw/DATA.csv")
+    os.system("dvc remove data/01_raw/DATA.csv.dvc")
     #os.system("git commit -m stop")
     os.system("dvc add data/01_raw/DATA.csv")
     os.system("dvc push data/01_raw/DATA.csv")
 
     os.system("git add data/01_raw/DATA.csv -f")
-    #os.system("git commit -m 'start new data.csv'")
+    #os.system("git commit -m start")
 
 def kedro_docker_set():
     logging.info("Create docker image of Kedro pipeline.")

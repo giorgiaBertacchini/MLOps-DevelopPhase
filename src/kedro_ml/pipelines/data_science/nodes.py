@@ -122,6 +122,7 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
         Values from predict.
     """
     # score returns the coefficient of determination of the prediction. Best possible score is 1.0, lower values are worse.
+    # we multiply it * 100, so the best score is 100.
     #scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
     score = regressor.score(X_val, y_val) * 100
 
