@@ -4,9 +4,9 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#schema">Schema</a></li>
-        <li><a href="#built-with">Built With</a></li>        
+      <ul>        
+        <li><a href="#built-with">Built With</a></li>  
+        <li><a href="#schema">Schema</a></li>     
         <li><a href="#interactions-and-communication">Interactions And Communication</a></li>
         <li><a href="#getting-started">Getting Started</a></li>
       </ul>
@@ -27,13 +27,15 @@
 # About The Project
 This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
 
+## Built With
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/tools.png)
+
+
 ## Schema
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/schema.png)
 
-## Built With
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/tools.png)
 
 ## Interactions And Communication
 
@@ -41,9 +43,11 @@ To interact with pipeline and all step, there is run.py that answer to command l
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/run.png)
 
+
 For communication between this project and observability step, there is a flask application with avaible API:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/app.png)
+
 
 ## Getting Started
 
