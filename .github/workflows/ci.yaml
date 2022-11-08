@@ -36,7 +36,7 @@ jobs:
         cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md   
         
         echo "## Last version" >> report.md
-        cat data/last_version.txt >> report.md   
+        cat "data/last_version.txt" >> report.md   
         
         cml-send-comment report.md
         
