@@ -38,10 +38,22 @@ jobs:
         echo "## Last version" >> report.md
         cat data/last_version.txt >> report.md   
         
-        echo "## Hyperparametes" >> report.md
-        #cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
+        cml-send-comment report.md
         
-        echo "## Activities columns" >> report.md
+    - name: Create CML report - Hyperparametes
+      env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: | 
+        echo "## Hyperparametes" >> report.md
+        cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
+        
+        cml-send-comment report.md
+        
+    - name: Create CML report - Columns
+      env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: | 
+        echo "## Columns" >> report.md
         cat "data/09_tracking/activities_columns.json/$( cat data/last_version.txt )/activities_columns.json" >> report.md   
 
         cml-send-comment report.md
