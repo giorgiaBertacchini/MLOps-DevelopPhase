@@ -30,6 +30,7 @@ Machine Learning Operations (MLOps).
 
 The term MLOps is defined as
 > “the extension of the DevOps methodology to include Machine Learning and Data Science assets as first-class citizens within the DevOps ecology”
+
 > “the ability to apply DevOps principles to Machine Learning applications”
 
 by [MLOps SIG](https://github.com/cdfoundation/sig-mlops/blob/main/roadmap/2020/MLOpsRoadmap2020.md)
@@ -70,7 +71,8 @@ For communication between this project and observability step, there is a flask 
 
 ## Workflow orchestration
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro_logo.png)
-As Workflow orchestration is used Kedro, an open-source Python framework for creating reproducible, maintainable and modular data science code.
+
+As Workflow orchestration is used [Kedro](https://kedro.readthedocs.io/en/stable/), an open-source Python framework for creating reproducible, maintainable and modular data science code.
 Kedro is a template for new data engineering and data science projects. This tool provide to organize all MLOps steps in a well-defined pipeline.
 
 ### Structure
@@ -207,6 +209,8 @@ def create_pipeline(**kwargs) -> Pipeline:
 
 ### Kedro-Viz
 
+It is a interactive visualization of the entire pipeline. It is a tool that can be very helpful for explaining what you're doing to people. 
+
 To see the kedro ui:
 
 ```
@@ -219,6 +223,137 @@ Example:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz.png)
 
+From here we can also see and compare the experiments, that are the versions created runned the kedro project.
+
+Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz_exaperiments.png)
+
+
+## Data analysis and manipulation
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/pandas_logo.png)
+
+[pandas](https://pandas.pydata.org/docs/)
+
+* DataFrame
+
+## Model training
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/scikitlearn_logo.png)
+
+[scikit-learn](https://scikit-learn.org/stable/getting_started.html)
+
+### Set hyperparameters
+
+Set hyperparameter in file `conf/base/parameters/data_science.yml`
+
+``` python
+model_options:
+  test_size: 0.2
+  val_size: 0.25
+  random_state: 42
+  max_depth: 2
+  features:
+    - Distance (km)
+    - Average Speed (km/h)
+    - Calories Burned
+    - Climb (m)
+    - Average Heart rate (tpm)
+```
+
+## Experimentation management
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow_logo.png)
+
+[MLflow](https://mlflow.org/docs/latest/index.html)
+
+``` python
+mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
+```
+
+``` python
+mlflow.sklearn.log_model(sk_model=regressor, artifact_path="model")
+```
+
+``` python
+mlflow.log_param('test_size', parameters["test_size"])
+mlflow.log_param('val_size', parameters["val_size"])
+mlflow.log_param('max_depth', parameters["max_depth"])
+mlflow.log_param('random_state', parameters["random_state"])
+```
+
+``` python
+mlflow.log_metric("accuracy", score)
+mlflow.log_metric("mean_absolute_erro", mae)
+mlflow.log_metric("mean_squared_error", mse)
+mlflow.log_metric("max_error", me)
+mlflow.log_param("time of prediction", str(datetime.now()))
+mlflow.set_tag("Model Type", "Random Forest")
+```
+
+``` python
+mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png"))  
+```
+
+### Before activate conda environment
+
+Need Python version 3.7.
+
+```
+conda create -n env_name python=3.7
+```
+
+```
+conda activate env_name
+```
+
+### How to run mlflow project
+
+You can run mlflow project with:
+
+```
+mlflow run . --experiment-name activities-example
+```
+
+### How to run mlflow project in Windows
+
+You can run mlflow project with:
+
+```
+mlflow run . --experiment-name activities-example --no-conda
+```
+
+### How to vizualize mlflow project
+
+You can run ui as follows:
+
+```
+mlflow ui
+```
+
+To see the mlflow ui go to the `270.0.0.1:5000` browser page.
+
+Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
+
+
+## Model packaging and serving
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/bentoml_logo.png)
+
+[BentoML](https://docs.bentoml.org/en/latest/)
+
+
+## Data versioning
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/dvc_logo.png)
+
+[DVC](https://dvc.org/doc)
+
 
 # Getting Started
 
@@ -228,6 +363,7 @@ To run flask application:
 flask run --host=0.0.0.0 --port=3030
 ```
 
+---
 
 # Tools
 
