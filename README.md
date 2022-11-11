@@ -24,6 +24,21 @@
   </ol>
 </details>
 
+# MLOps
+MLOps is designed to facilitate the installation of ML software in a production environment. 
+Machine Learning Operations (MLOps).
+
+The term MLOps is defined as
+> “the extension of the DevOps methodology to include Machine Learning and Data Science assets as first-class citizens within the DevOps ecology”
+by [MLOps SIG](https://github.com/cdfoundation/sig-mlops/blob/main/roadmap/2020/MLOpsRoadmap2020.md)
+
+## Three Level
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/cycle.webp)
+MLOps combine machine learning model, application development and operations.
+
+## Principles
+
+
 # About The Project
 This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
 
@@ -49,7 +64,66 @@ For communication between this project and observability step, there is a flask 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/app.png)
 
 
-## Getting Started
+# How it works
+
+## Workflow orchestration
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro_logo.png)
+As Workflow orchestration is used Kedro, an open-source Python framework for creating reproducible, maintainable and modular data science code.
+Kedro is a template for new data engineering and data science projects. This tool provide to organize all MLOps steps in a well-defined pipeline.
+
+### Key elements
+* Data Catalog
+  * It makes the datasets declarative, rather than imperative. So all the informations related to a dataset are highly organized.
+* Node
+  * It is a Python function that accepts input and optionally provides outputs.
+* Pipeline
+  * It is a collection of nodes. It create the Kedro DAG (Directed acyclic graph).
+
+#### Data Catalog
+In the project Data Catalog is implemented in `conf/base/catalog`.
+Here is define each type, destination filepath and if is versioned about the data sets, in output from the nodes.
+Here you can define all your data sets by using simple YAML syntax.
+Documentation for this file format can be found at link: [Data Catalog Doc](https://kedro.readthedocs.io/en/stable/data/data_catalog.html)
+Examples:
+``` python
+model_input_table:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/model_input_table.csv
+  versioned: true
+```
+
+``` python
+regressor:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/regressor.pickle
+  versioned: true
+```
+
+``` python
+metrics:
+  type: tracking.MetricsDataSet
+  filepath: data/09_tracking/metrics.json
+  versioned: true
+```
+
+``` python
+plot_feature_importance_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/08_reporting/plot_feature_importance_img.json
+  versioned: true
+  plotly_args:
+    type: bar
+    fig:
+      x: importance
+      y: feature
+      orientation: h
+    layout:
+      xaxis_title: importance
+      yaxis_title: feature
+      title: Importance for feature
+```
+
+# Getting Started
 
 To run flask application: 
 
