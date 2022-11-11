@@ -30,6 +30,8 @@ Machine Learning Operations (MLOps).
 
 The term MLOps is defined as
 > “the extension of the DevOps methodology to include Machine Learning and Data Science assets as first-class citizens within the DevOps ecology”
+> “the ability to apply DevOps principles to Machine Learning applications”
+
 by [MLOps SIG](https://github.com/cdfoundation/sig-mlops/blob/main/roadmap/2020/MLOpsRoadmap2020.md)
 
 ## Three Level
@@ -71,20 +73,42 @@ For communication between this project and observability step, there is a flask 
 As Workflow orchestration is used Kedro, an open-source Python framework for creating reproducible, maintainable and modular data science code.
 Kedro is a template for new data engineering and data science projects. This tool provide to organize all MLOps steps in a well-defined pipeline.
 
+### Structure
+
+When you installing and initialize a Kedro project, with the commands
+```
+pip install kedro
+```
+```
+kedro new
+```
+after are automatic creted needed folders and files. The most important of these are as follows:
+* `conf/base/`
+  * `catalog.yml` file
+  * `parameters/` folder, with the parameters for each pipelines
+* `data/` folder, with all data sets and other output, separate for additional named folders, as: `01_raw`, `02_intermediate`, `06_models`, `08_reporting`
+* `logs/` folder
+* `src/kedro_ml/`
+  * `pipeline_registry.py` file, with the pipeline names
+  * `pipelines/` folder, with specified each pipelines
+* `src/requirements.txt` file, with needed models
+
 ### Key elements
-* Data Catalog
+* **Data Catalog**
   * It makes the datasets declarative, rather than imperative. So all the informations related to a dataset are highly organized.
-* Node
+* **Node**
   * It is a Python function that accepts input and optionally provides outputs.
-* Pipeline
+* **Pipeline**
   * It is a collection of nodes. It create the Kedro DAG (Directed acyclic graph).
 
 #### Data Catalog
-In the project Data Catalog is implemented in `conf/base/catalog`.
+In the project Data Catalog is implemented in `conf/base/catalog.yml`.
 Here is define each type, destination filepath and if is versioned about the data sets, in output from the nodes.
 Here you can define all your data sets by using simple YAML syntax.
 Documentation for this file format can be found at link: [Data Catalog Doc](https://kedro.readthedocs.io/en/stable/data/data_catalog.html)
+
 Examples:
+
 ``` python
 model_input_table:
   type: pandas.CSVDataSet
@@ -106,6 +130,8 @@ metrics:
   versioned: true
 ```
 
+The next is more complex, so this plot is showed also in the Kedro interactive visualization platform [Kedro-Viz](https://kedro.readthedocs.io/en/0.17.4/03_tutorial/06_visualise_pipeline.html).
+
 ``` python
 plot_feature_importance_img:
   type: plotly.PlotlyDataSet
@@ -122,6 +148,77 @@ plot_feature_importance_img:
       yaxis_title: feature
       title: Importance for feature
 ```
+
+As you can see:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/plot_in_kedro_viz.png)
+
+
+#### Node
+
+The node functions are write in `nodes.py` file of the respective pipeline folder.
+
+``` python
+def preprocess_activities(activities: pd.DataFrame) -> Tuple[pd.DataFrame, Dict]:
+    """Preprocesses the data for activities.
+
+    Args:
+        activities: Raw data.
+    Returns:
+        Preprocessed data and JSON file.
+    """
+    activities = _validation(activities)
+    activities = _wrangling(activities)
+    
+    return activities, {"columns": activities.columns.tolist(), "data_type": "activities"}
+```
+
+#### Pipeline
+
+The pipeline definition is write in the `pipeline.py` file in the respective pipeline folder.
+
+From example we can see the nodes, with their function, input, output, name. These must match with the nodes implementation (see previously) and the 'name's are repeated in the Data Catalog (see previously).
+
+``` python
+def create_pipeline(**kwargs) -> Pipeline:
+    return pipeline(
+        [
+            node(
+                func=preprocess_activities,
+                inputs="activities",
+                outputs=["preprocessed_activities", "activities_columns"],
+                name="preprocess_activities_node",
+            ),
+            node(
+                func=exploration_activities,
+                inputs="activities",
+                outputs="exploration_activities",
+                name="exploration_activities_node",
+            ),
+            node(
+                func=create_model_input_table,
+                inputs=["preprocessed_activities", "params:table_columns"],
+                outputs="model_input_table",
+                name="create_model_input_table_node",
+            ),
+        ]
+    )
+```
+
+### Kedro-Viz
+
+To see the kedro ui:
+
+```
+kedro viz
+```
+
+To see the kedro ui go to the `270.0.0.1:4141` browser page.
+
+Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz.png)
+
 
 # Getting Started
 
@@ -264,30 +361,6 @@ Example:
 ### Set hyperparameters
 
 Set hyperparameter in file `conf/base/parameters/data_science.yml`
-
-## Kedro
-
-### Rules and guidelines
-
-To install run:
-
-```
-pip install kedro
-```
-
-### How to vizualize kedro pipeline
-
-To see the kedro ui:
-
-```
-kedro viz
-```
-
-To see the mlflow ui go to the `270.0.0.1:4141` browser page.
-
-Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz.png)
 
 
 ## Bentoml
