@@ -241,7 +241,7 @@ From here we can also see and compare the experiments, that are the versions cre
 Example:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments.png)
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments_1.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments_0.png)
 
 ## Data versioning
 
