@@ -125,21 +125,21 @@ Documentation for this file format can be found at link: [Data Catalog Doc](http
 
 Examples:
 
-``` python
+``` yaml
 model_input_table:
   type: pandas.CSVDataSet
   filepath: data/04_feature/model_input_table.csv
   versioned: true
 ```
 
-``` python
+``` yaml
 regressor:
   type: pickle.PickleDataSet
   filepath: data/06_models/regressor.pickle
   versioned: true
 ```
 
-``` python
+``` yaml
 metrics:
   type: tracking.MetricsDataSet
   filepath: data/09_tracking/metrics.json
@@ -148,7 +148,7 @@ metrics:
 
 The next is more complex, so this plot is showed also in the Kedro interactive visualization platform [Kedro-Viz](https://kedro.readthedocs.io/en/0.17.4/03_tutorial/06_visualise_pipeline.html).
 
-``` python
+``` yaml
 plot_feature_importance_img:
   type: plotly.PlotlyDataSet
   filepath: data/08_reporting/plot_feature_importance_img.json
@@ -277,7 +277,7 @@ is created `.dvc` folder, where the most important file is:
 
 In this project is used own Google Drive, the code at path `.dvc/config` is:
 
-```
+``` yaml
 [core]
     remote = storage
     autostage = true
@@ -331,7 +331,7 @@ For more: LINK MIO FILE Part 3
 
 Set hyperparameter in file `conf/base/parameters/data_science.yml`
 
-``` python
+``` yaml
 model_options:
   test_size: 0.2
   val_size: 0.25
@@ -383,6 +383,19 @@ mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_imp
 mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png"))  
 ```
 
+### Configuration
+
+`MLproject` file:
+
+``` yaml
+name: kedro mlflow
+conda_env: conda.yaml
+entry_points:
+  main:
+    command: "kedro run"
+```
+
+
 ### Before activate conda environment
 
 Need Python version 3.7.
@@ -433,6 +446,71 @@ Example:
 </div>
 
 [BentoML](https://docs.bentoml.org/en/latest/)
+
+
+`service.py` file
+
+``` python
+def predict(input_data: pd.DataFrame):
+  with open(os.path.join("conf", "base", "parameters", "data_science.yml"), "r") as f:
+    configuration = yaml.safe_load(f)    
+  with open('temp.json', 'w') as json_file:
+    json.dump(configuration, json_file)    
+  output = json.load(open('temp.json'))
+  
+  parameters = {"header":output["model_options"]["features"]}
+  input_data = create_model_input_table(input_data, parameters)
+  input_data, dict_col = preprocess_activities(input_data)
+  
+  print("Start the prediction...")
+  return model_runner.predict.run(input_data)
+```
+
+
+`bentofile.yaml`
+
+``` yaml
+service: "service:svc"
+include:
+  - "service.py"
+  - "src/kedro_ml/pipelines/data_processing/nodes.py"
+conda:
+  environment_yml: "./conda.yaml"
+docker:
+  env:
+  - BENTOML_PORT=3005
+```
+
+`src/pipeline/data_science/nodes.py`
+
+``` python
+bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
+```
+
+## Deploying pipeline
+
+<div align="center">
+  <h1>kedro-docker</h1>
+</div>
+
+[kedro-docker](https://github.com/quantumblacklabs/kedro-docker)
+
+`Dockerfile` file
+
+For set the number port:
+
+``` python
+EXPOSE 3030
+```
+
+For set the command:
+
+``` python
+#CMD ["kedro", "run"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
+```
+
+# Bridge
 
 
 
