@@ -44,7 +44,10 @@ The term MLOps is defined as
 by [MLOps SIG](https://github.com/cdfoundation/sig-mlops/blob/main/roadmap/2020/MLOpsRoadmap2020.md)
 
 ## Three Level
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/cycle.webp)
+<div align="center">
+  <img width="600" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/cycle.webp">
+</div>
+
 MLOps combine machine learning model, application development and operations.
 
 ## Principles
