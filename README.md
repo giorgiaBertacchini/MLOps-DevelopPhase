@@ -235,14 +235,14 @@ To see the kedro ui go to the `270.0.0.1:4141` browser page.
 
 Example:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz.png)
-
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro-viz.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro-viz.png)
 From here we can also see and compare the experiments, that are the versions created runned the kedro project.
 
 Example:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz_exaperiments.png)
-
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_exaperiments.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_exaperiments_1.png)
 
 ## Data versioning
 
