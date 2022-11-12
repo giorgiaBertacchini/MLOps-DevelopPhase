@@ -3,6 +3,12 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
+      <a href="#mlops">MLOps</a>
+      <ul>        
+        <li><a href="#three-level">Three Level</a></li>  
+      </ul>
+    </li>
+    <li>
       <a href="#about-the-project">About The Project</a>
       <ul>        
         <li><a href="#built-with">Built With</a></li>  
@@ -12,17 +18,19 @@
       </ul>
     </li>
     <li>
-      <a href="#tools">Tools</a>
+      <a href="#How it works">Tools</a>
       <ul>
-        <li><a href="#kedro-docker">kedro-docker</a></li>
+        <li><a href="#workflow-orchestration">Workflow orchestration</a></li>
         <li><a href="#dvc">DVC</a></li>
         <li><a href="#mlflow">mlflow</a></li>
         <li><a href="#bentoml">Bentoml</a></li>
-        <li><a href="#containerize">Containerize</a></li>
+        <li><a href="#containerize">Containerize</a></li>        
+        <li><a href="#kedro-docker">kedro-docker</a></li>
       </ul>
     </li>
   </ol>
 </details>
+
 
 # MLOps
 MLOps is designed to facilitate the installation of ML software in a production environment. 
@@ -70,7 +78,10 @@ For communication between this project and observability step, there is a flask 
 # How it works
 
 ## Workflow orchestration
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro_logo.png)
+
+<div align="center">
+  <img width="270" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_logo.png">
+</div>
 
 As Workflow orchestration is used [Kedro](https://kedro.readthedocs.io/en/stable/), an open-source Python framework for creating reproducible, maintainable and modular data science code.
 Kedro is a template for new data engineering and data science projects. This tool provide to organize all MLOps steps in a well-defined pipeline.
@@ -232,7 +243,9 @@ Example:
 
 ## Data versioning
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/dvc_logo.png)
+<div align="center">
+  <img width="280" alt="dvc logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/dvc_logo.png">
+</div>
 
 Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provide to handle large files, data sets, machine learning models, and metrics.
 
@@ -295,7 +308,9 @@ For more: LINK MIO FILE Part 3
 
 ## Data analysis and manipulation
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/pandas_logo.png)
+<div align="center">
+  <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/pandas_logo.png">
+</div>
 
 [pandas](https://pandas.pydata.org/docs/)
 
@@ -303,7 +318,9 @@ For more: LINK MIO FILE Part 3
 
 ## Model training
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/scikitlearn_logo.png)
+<div align="center">
+  <img width="260" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/scikitlearn_logo.png">
+</div>
 
 [scikit-learn](https://scikit-learn.org/stable/getting_started.html)
 
@@ -327,7 +344,9 @@ model_options:
 
 ## Experimentation management
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow_logo.png)
+<div align="center">
+  <img width="280" alt="MLflow logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_logo.png">
+</div>
 
 [MLflow](https://mlflow.org/docs/latest/index.html)
 
@@ -406,7 +425,9 @@ Example:
 
 ## Model packaging and serving
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/bentoml_logo.png)
+<div align="center">
+  <img width="350" alt="BentoML logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml_logo.png">
+</div>
 
 [BentoML](https://docs.bentoml.org/en/latest/)
 
@@ -420,7 +441,11 @@ To run flask application:
 flask run --host=0.0.0.0 --port=3030
 ```
 
+
+
 ---
+
+
 
 # Tools
 
@@ -463,39 +488,6 @@ Pull the image from Docker hub onto your production server:
 ```
 docker pull <DockerID>/<image-name>
 ```
-
-
-## DVC
-
-It is for Data Versioning.
-
-To install, run: 
-
-```
-pip install dvc
-```
-
-To update data:
-
-```
-dvc remove data/01_raw/DATA.csv.dvc 
-```
-
-```
-dvc add data/01_raw/DATA.csv
-```
-
-We can see in folder .dvc/cache/ in the corrispective folder there are the data .dvc
-
-```
-dvc push data/01_raw/DATA.csv
-```
-
-Now in drive or data updated or there are a new folder with the new data version.
-
-### Set remote storage
-
-Set the `url` in the file `.dvc/config`
 
 
 ## mlflow
