@@ -230,6 +230,69 @@ Example:
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/kedro-viz_exaperiments.png)
 
 
+## Data versioning
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/dvc_logo.png)
+
+Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provide to handle large files, data sets, machine learning models, and metrics.
+
+### file .dvc
+
+DVC stores information about the added file in a special `.dvc` file named `data/data.xml.dvc`, this metadata file is a placeholder for the original data.
+
+In this case we would save the original datasets, so `data/01_raw/DATA.csv`.
+
+### Structure
+
+When you installing and initialize dvc setting:
+
+```
+pip install dvc
+```
+```
+dvc init
+```
+
+is created `.dvc` folder, where the most important file is:
+
+* `config`, with the url to remote destination, where save the data.
+
+### Set remote storage
+
+In this project is used own Google Drive, the code at path `.dvc/config` is:
+
+```
+[core]
+    remote = storage
+    autostage = true
+['remote "storage"']
+    url = gdrive://1LMUFVzJn4CNaqVbMsVGZazii4Mdxsanj
+```
+
+### Commands
+
+To update data in remote storage, we use the next commands:
+
+```
+dvc add data/01_raw/DATA.csv
+```
+This for update or create the file `.dvc`.
+We can see in folder `.dvc/cache/` in the corrispective folder there are the data to save.
+
+```
+dvc push data/01_raw/DATA.csv
+```
+
+Now in Google Drive appear a new folder with the new data version.
+
+Note: If the data to save is not changed (and also saved), the file `.dvc` is not update and not appear another folder in Google Drive.
+
+### More
+DVC is a more usefull tool. As Data manager, we can also create data pipeline and specify the metrics, parameters and plots. DVC is also a Experiment manager, providing comparison and visualize experiment results. 
+
+For more: LINK MIO FILE Part 3
+
+
 ## Data analysis and manipulation
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/pandas_logo.png)
@@ -347,12 +410,6 @@ Example:
 
 [BentoML](https://docs.bentoml.org/en/latest/)
 
-
-## Data versioning
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/dvc_logo.png)
-
-[DVC](https://dvc.org/doc)
 
 
 # Getting Started
