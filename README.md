@@ -6,6 +6,7 @@
       <a href="#mlops">MLOps</a>
       <ul>        
         <li><a href="#three-level">Three Level</a></li>  
+        <li><a href="#principles">Principles</a></li>
       </ul>
     </li>
     <li>
@@ -13,20 +14,58 @@
       <ul>        
         <li><a href="#built-with">Built With</a></li>  
         <li><a href="#schema">Schema</a></li>     
-        <li><a href="#interactions-and-communication">Interactions And Communication</a></li>
-        <li><a href="#getting-started">Getting Started</a></li>
       </ul>
     </li>
     <li>
-      <a href="#How it works">Tools</a>
+      <a href="#how-it-works">How it works</a>
       <ul>
         <li><a href="#workflow-orchestration">Workflow orchestration</a></li>
-        <li><a href="#dvc">DVC</a></li>
-        <li><a href="#mlflow">mlflow</a></li>
-        <li><a href="#bentoml">Bentoml</a></li>
-        <li><a href="#containerize">Containerize</a></li>        
-        <li><a href="#kedro-docker">kedro-docker</a></li>
+        <ul>
+          <li><a href="#structure">Structure</a></li>          
+          <li><a href="#key-elements">Key elements</a></li>
+          <ul>
+            <li><a href="#data-catalog">Data Catalog</a></li>
+            <li><a href="#node">Node</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+          </ul>
+          <li><a href="#kedro-viz">Kedro-Viz</a></li>
+        </ul>
+        <li><a href="#data-versioning">Data versioning</a></li>
+        <ul>
+          <li><a href="#structure-dvc">Structure DVC</a></li>          
+          <li><a href="#key-elements-dvc">Key elements DVC</a></li>
+          <ul>
+            <li><a href="#file-dvc">file .dvc</a></li>
+            <li><a href="#set-remote-storage">Set remote storage</a></li>
+          </ul>
+          <li><a href="#commands">Commands</a></li>
+          <li><a href="#more">More</a></li>
+        </ul>
+        <li><a href="#data-analysis-and-manipulation">Data analysis and manipulation</a></li>
+        <li><a href="#model-training">Model training</a></li>        
+        <li><a href="#experimentation-management">Experimentation management</a></li>   
+        <li><a href="#model-packaging-and-serving">Model packaging and serving</a></li>
+        <li><a href="#deploying-pipeline">Deploying pipeline</a></li>
       </ul>
+    </li>
+    <li>
+      <a href="#bridge">Bridge</a>
+      <ul>
+        <li><a href="#interactions-and-communication">Interactions And Communication</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#usage">Usage</a>
+    </li>
+    <li>
+      <a href="#acknowledgments">Acknowledgments</a>
     </li>
   </ol>
 </details>
@@ -64,18 +103,6 @@ This project puts into practice the steps of MLOps and it is complete using the 
 ## Schema
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/schema.png)
-
-
-## Interactions And Communication
-
-To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/run.png)
-
-
-For communication between this project and observability step, there is a flask application with avaible API:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/app.png)
 
 
 # How it works
@@ -251,13 +278,7 @@ Example:
 
 Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provide to handle large files, data sets, machine learning models, and metrics.
 
-### file .dvc
-
-DVC stores information about the added file in a special `.dvc` file named `data/data.xml.dvc`, this metadata file is a placeholder for the original data.
-
-In this case we would save the original datasets, so `data/01_raw/DATA.csv`.
-
-### Structure
+### Structure DVC
 
 When you installing and initialize dvc setting:
 
@@ -272,7 +293,15 @@ is created `.dvc` folder, where the most important file is:
 
 * `config`, with the url to remote destination, where save the data.
 
-### Set remote storage
+### Key elements DVC
+
+#### file .dvc
+
+DVC stores information about the added file in a special `.dvc` file named `data/data.xml.dvc`, this metadata file is a placeholder for the original data.
+
+In this case we would save the original datasets, so `data/01_raw/DATA.csv`.
+
+#### Set remote storage
 
 In this project is used own Google Drive, the code at path `.dvc/config` is:
 
@@ -511,6 +540,16 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
 
 # Bridge
 
+## Interactions And Communication
+
+To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/run.png)
+
+
+For communication between this project and observability step, there is a flask application with avaible API:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/app.png)
 
 
 # Getting Started
@@ -521,6 +560,19 @@ To run flask application:
 flask run --host=0.0.0.0 --port=3030
 ```
 
+## Prerequisites
+
+## Installation
+
+
+# Usage
+
+# Acknowledgments
+
+* [ml-ops.org](https://ml-ops.org/)
+* [neptune.ai](https://neptune.ai/blog/mlops)
+* [mlebook.com](http://www.mlebook.com/wiki/doku.php)
+* Book "Introducing MLOps How to Scale Machine Learning in the Enterprise (Mark Treveil, Nicolas Omont, Clément Stenac etc.)"
 
 
 ---
