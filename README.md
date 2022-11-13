@@ -44,7 +44,7 @@
         <li><a href="#data-analysis-and-manipulation">Data analysis and manipulation</a></li>
         <ul>
           <li><a href="#key-elements-pandas">Key elements Pandas</a></li>
-          <li><a href="#commands">Commands</a></li>
+          <li><a href="#commands-pandas">Commands pandas</a></li>
           <li><a href="#code">Code</a></li>
         </ul>
         <li><a href="#model-training">Model training</a></li>
@@ -367,7 +367,7 @@ by [pandas.pydata.org](https://pandas.pydata.org/docs/getting_started/overview.h
 ### Key elements pandas
 pandas will help you to explore, clean, and process your data. In pandas, a data table is called a DataFrame. If it is 1-D is called Series.
 
-### Commands
+### Commands pandas
 It require the installation, also with conda:
 ```
 pip install pandas
@@ -394,7 +394,7 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 
 It is a simple and efficient tools for predictive data analysis and it also provides various tools for model fitting, data preprocessing, model selection, model evaluation.
 
-### Structure
+### Structure sklearn
 
 For change the parameters, update `conf/base/parameters/data_science.yml` file with settings use during model management.
 
@@ -479,15 +479,39 @@ me = metrics.max_error(y_val, y_pred)
   <img width="280" alt="MLflow logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_logo.png">
 </div>
 
-[MLflow](https://mlflow.org/docs/latest/index.html)
+[MLflow](https://mlflow.org/docs/latest/index.html) is an open source platform for managing the end-to-end machine learning lifecycle.
+
+MLFlow can be very helpful in terms of tracking metrics over time. We can visualize that and communicate what is the progress over time. MLFlow centralize all of these metrics and also the models generates.
+
+### MLflow and Kedro
+MLflow and Kedro are tools complementary and not conflicting:
+* Kedro is the foundation of your data science and data engineering project
+* MLflow create that centralized repository of metrics and progress over time
+
+<div align="center">
+  <img width="400" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
+</div>
+
+### Code
+
+#### Logging File
 
 ``` python
 mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 ```
 
+#### Logging Model
+
 ``` python
 mlflow.sklearn.log_model(sk_model=regressor, artifact_path="model")
 ```
+``` python
+mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png")) 
+```
+
+#### Logging key-value param
 
 ``` python
 mlflow.log_param('test_size', parameters["test_size"])
@@ -496,24 +520,24 @@ mlflow.log_param('max_depth', parameters["max_depth"])
 mlflow.log_param('random_state', parameters["random_state"])
 ```
 
+#### Logging key-value metric
+
 ``` python
 mlflow.log_metric("accuracy", score)
 mlflow.log_metric("mean_absolute_erro", mae)
 mlflow.log_metric("mean_squared_error", mse)
 mlflow.log_metric("max_error", me)
-mlflow.log_param("time of prediction", str(datetime.now()))
+```
+
+#### Setting key-value tag 
+
+``` python
 mlflow.set_tag("Model Type", "Random Forest")
 ```
 
-``` python
-mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
-mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
-mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png"))  
-```
+### Structure
 
-### Configuration
-
-`MLproject` file:
+For specify more options is used `MLproject` file:
 
 ``` yaml
 name: kedro mlflow
