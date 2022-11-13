@@ -97,7 +97,7 @@ This project puts into practice the steps of MLOps and it is complete using the 
 
 ## Built With
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/tools.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/tools.png)
 
 
 ## Schema
@@ -343,9 +343,31 @@ For more: LINK MIO FILE Part 3
   <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/pandas_logo.png">
 </div>
 
-[pandas](https://pandas.pydata.org/docs/)
+[pandas](https://pandas.pydata.org/docs/) is a Python package providing fast, flexible, and expressive data structures.
 
-* DataFrame
+> it has the broader goal of becoming the most powerful and flexible open source data analysis/manipulation tool available in any language. It is already well on its way toward this goal.
+
+by [pandas.pydata.org](https://pandas.pydata.org/docs/getting_started/overview.html)
+
+### Key elements pandas
+pandas will help you to explore, clean, and process your data. In pandas, a data table is called a DataFrame. If it is 1-D is called Series.
+
+### Commands
+It require the installation, also with conda:
+```
+pip install pandas
+```
+
+### Code
+In the code, pandas Dataframes are used in nodes as funciontion input and output. For example:
+
+``` python
+def preprocess_activities(activities: pd.DataFrame) -> Tuple[pd.DataFrame, Dict]
+```
+
+``` python
+def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
+```
 
 ## Model training
 
