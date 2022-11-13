@@ -379,9 +379,41 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 
 It is a simple and efficient tools for predictive data analysis and it also provides various tools for model fitting, data preprocessing, model selection, model evaluation.
 
+### Structure
+
+For change the parameters, update `conf/base/parameters/data_science.yml` file with settings use during model management.
+
+``` yaml
+model_options:
+  test_size: 0.2
+  val_size: 0.25
+  random_state: 42
+  max_depth: 2
+  features:
+    - Distance (km)
+    - Average Speed (km/h)
+    - Calories Burned
+    - Climb (m)
+    - Average Heart rate (tpm)
+```
+
+
+For passing as input this parameters to nodes, this specification is write in file `src/kedro_ml/pipelines/data_science/pipeline.py`. For example:
+
+``` python
+node(
+  func=split_data,
+  inputs=["model_input_table", "params:model_options"],
+  name="split_data_node",
+  outputs=["X_train", "X_test", "X_val", "y_train", "y_test", "y_val"],
+),
+```
+
 ### Key elements sklearn
 
-#### Splitting
+Note: the next codes are take from `src/kedro_ml/pipelines/data_science/nodes.py`.
+
+#### Splitting dataset
 ``` python
 from sklearn.model_selection import train_test_split
 
@@ -424,24 +456,6 @@ mae = metrics.mean_absolute_error(y_val, y_pred)
 mse = metrics.mean_squared_error(y_val, y_pred)
 # ME to capture the worst-case error between the predicted value and the true value.
 me = metrics.max_error(y_val, y_pred)
-```
-
-### Set Parameters
-
-Set parameters in file `conf/base/parameters/data_science.yml`
-
-``` yaml
-model_options:
-  test_size: 0.2
-  val_size: 0.25
-  random_state: 42
-  max_depth: 2
-  features:
-    - Distance (km)
-    - Average Speed (km/h)
-    - Calories Burned
-    - Climb (m)
-    - Average Heart rate (tpm)
 ```
 
 ## Experimentation management
