@@ -42,7 +42,22 @@
           <li><a href="#more">More</a></li>
         </ul>
         <li><a href="#data-analysis-and-manipulation">Data analysis and manipulation</a></li>
-        <li><a href="#model-training">Model training</a></li>        
+        <ul>
+          <li><a href="#key-elements-pandas">Key elements Pandas</a></li>
+          <li><a href="#commands">Commands</a></li>
+          <li><a href="#code">Code</a></li>
+        </ul>
+        <li><a href="#model-training">Model training</a></li>
+        <ul>
+          <li><a href="#structure-sklearn">Structure sklearn</a></li>
+          <li><a href="#key-elements-sklearn">Key elements sklearn</a></li>
+          <ul>
+            <li><a href="#splitting-dataset">Splitting dataset</a></li>
+            <li><a href="#estimator-and-fitting-model">Estimator and fitting model</a></li>
+            <li><a href="#model-evaluation">Model evaluation</a></li>
+            <li><a href="#metrics">Metrics</a></li>
+          </ul>
+        </ul>
         <li><a href="#experimentation-management">Experimentation management</a></li>   
         <li><a href="#model-packaging-and-serving">Model packaging and serving</a></li>
         <li><a href="#deploying-pipeline">Deploying pipeline</a></li>
