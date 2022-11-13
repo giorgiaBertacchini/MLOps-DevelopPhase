@@ -375,11 +375,60 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
   <img width="260" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/scikitlearn_logo.png">
 </div>
 
-[scikit-learn](https://scikit-learn.org/stable/getting_started.html)
+[scikit-learn](https://scikit-learn.org/stable/getting_started.html), or sklearn, is an open source machine learning library.
 
-### Set hyperparameters
+It is a simple and efficient tools for predictive data analysis and it also provides various tools for model fitting, data preprocessing, model selection, model evaluation.
 
-Set hyperparameter in file `conf/base/parameters/data_science.yml`
+### Key elements sklearn
+
+#### Splitting
+``` python
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=parameters["test_size"], random_state=parameters["random_state"])
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=parameters["val_size"], random_state=parameters["random_state"])
+
+```
+
+#### Estimator and fitting model
+
+``` python
+from sklearn.ensemble import RandomForestRegressor
+
+regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
+regressor.fit(X_train, y_train)
+```
+
+#### Model evaluation
+``` python
+from sklearn.model_selection import GridSearchCV
+
+# define search space
+space = dict()
+space['max_depth'] = [1,2,3]
+space['random_state'] = [41,42,43,44]
+
+# define search
+search = GridSearchCV(regressor, space, scoring='neg_mean_absolute_error')
+# execute search
+result = search.fit(X_train, y_train)
+```
+
+#### Metrics
+``` python
+from sklearn import metrics
+
+# MAE to measure errors between the predicted value and the true value.
+mae = metrics.mean_absolute_error(y_val, y_pred)
+# MSE to average squared difference between the predicted value and the true value.
+mse = metrics.mean_squared_error(y_val, y_pred)
+# ME to capture the worst-case error between the predicted value and the true value.
+me = metrics.max_error(y_val, y_pred)
+```
+
+### Set Parameters
+
+Set parameters in file `conf/base/parameters/data_science.yml`
 
 ``` yaml
 model_options:
