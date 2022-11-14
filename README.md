@@ -224,7 +224,7 @@ This project puts into practice the steps of MLOps and it is complete using the 
 
 ## Schema
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/schema.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/schema.png)
 
 
 # How it works
