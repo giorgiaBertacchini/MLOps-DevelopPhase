@@ -60,8 +60,8 @@
         <li><a href="#05-experimentation-management">05 Experimentation management</a></li>   
         <ul>
           <li><a href="#05-collaboration">05 Collaboration</a></li>
-          <li><a href="#05-guidelines">05 Guidelines</a></li>
           <li><a href="#05-structure">05 Structure</a></li>
+          <li><a href="#05-guidelines">05 Guidelines</a></li>
         </ul>      
         <li><a href="#06-model-packaging-and-serving">06 Model packaging and serving</a></li>
         <ul>
@@ -528,56 +528,6 @@ MLflow and Kedro are tools complementary and not conflicting:
   <img width="550" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
 </div>
 
-### 05 Guidelines
-
-#### Installation
-It needs to be installed
-
-```
-pip install mlflow
-```
-
-#### Logging File
-
-``` python
-mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
-```
-
-#### Logging Model
-
-``` python
-mlflow.sklearn.log_model(sk_model=regressor, artifact_path="model")
-```
-``` python
-mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
-mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
-mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png")) 
-```
-
-#### Logging key-value param
-
-``` python
-mlflow.log_param('test_size', parameters["test_size"])
-mlflow.log_param('val_size', parameters["val_size"])
-mlflow.log_param('max_depth', parameters["max_depth"])
-mlflow.log_param('random_state', parameters["random_state"])
-```
-
-#### Logging key-value metric
-
-``` python
-mlflow.log_metric("accuracy", score)
-mlflow.log_metric("mean_absolute_erro", mae)
-mlflow.log_metric("mean_squared_error", mse)
-mlflow.log_metric("max_error", me)
-```
-
-#### Setting key-value tag 
-
-``` python
-mlflow.set_tag("Model Type", "Random Forest")
-```
-
 ### 05 Structure
 
 For specify more options is used `MLproject` file:
@@ -591,7 +541,54 @@ entry_points:
 ```
 So when run mlflow is execute the command `kedro run`.
 
-#### Commands mlflow
+### 05 Guidelines
+
+It needs to be installed:
+
+```
+pip install mlflow
+```
+
+To log file:
+
+``` python
+mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
+```
+
+To log model:
+
+``` python
+mlflow.sklearn.log_model(sk_model=regressor, artifact_path="model")
+```
+``` python
+mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png")) 
+```
+
+To log key-value param:
+
+``` python
+mlflow.log_param('test_size', parameters["test_size"])
+mlflow.log_param('val_size', parameters["val_size"])
+mlflow.log_param('max_depth', parameters["max_depth"])
+mlflow.log_param('random_state', parameters["random_state"])
+```
+
+To log key-value metric:
+
+``` python
+mlflow.log_metric("accuracy", score)
+mlflow.log_metric("mean_absolute_erro", mae)
+mlflow.log_metric("mean_squared_error", mse)
+mlflow.log_metric("max_error", me)
+```
+
+To set key-value tag:
+
+``` python
+mlflow.set_tag("Model Type", "Random Forest")
+```
 
 ### Before activate conda environment
 
@@ -613,9 +610,7 @@ You can run mlflow project with:
 mlflow run . --experiment-name activities-example
 ```
 
-### How to run mlflow project in Windows
-
-You can run mlflow project with:
+To run mlflow project in Windows, you can run mlflow project with:
 
 ```
 mlflow run . --experiment-name activities-example --no-conda
@@ -730,15 +725,11 @@ bentoml containerize activities_model:latest
 
 ### 06 Guidelines
 
-#### Installation
-
 BentoML requires installation:
 
 ```
 pip install bentoml
 ```
-
-#### View
 
 To see all bento models:
 
@@ -752,21 +743,19 @@ To see more about a bento model:
 bentoml models get <name_model>:<number_version>
 ```
 
-#### Build a bento model
+To build a bento model:
 
 ```
 bentoml build
 ```
 
-#### Start Bento model in production
+To start Bento model in production:
 
 ```
 bentoml serve <name_model>:latest --production
 ```
 
-#### Run Bento Server
-
-If use Windows run this without `-- reload`:
+If use Windows run Bento Server without `-- reload`:
 
 ```
 bentoml serve service:svc --reload
