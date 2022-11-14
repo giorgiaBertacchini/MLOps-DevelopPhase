@@ -464,7 +464,7 @@ For more: LINK MIO FILE Part 3
   <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/pandas_logo.png">
 </div>
 
-:books: *Theory:
+:books: *Theory: Perform exploratory data analysis (EDA) is when data scientists or analysts consider available data sources to train a ML model*
 
 [pandas](https://pandas.pydata.org/docs/) is a Python package providing fast, flexible, and expressive data structures.
 
@@ -497,6 +497,8 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 <div align="center">
   <img width="260" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/scikitlearn_logo.png">
 </div>
+
+:books: *Theory: The data scientist implements different algorithms with the prepared data to train various ML models. In addition, you subject the implemented algorithms to hyperparameter tuning to get the best performing ML model.*
 
 [scikit-learn](https://scikit-learn.org/stable/getting_started.html), or sklearn, is an open source machine learning library.
 
@@ -593,6 +595,8 @@ pip install -U scikit-learn
 <div align="center">
   <img width="280" alt="MLflow logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_logo.png">
 </div>
+
+:books: *Theory: ML experiment steps are orchestrated and done automatically. Experiment environment is used in the preproduction and production environment, which is a key aspect of MLOps practice for unifying DevOps.*
 
 [MLflow](https://mlflow.org/docs/latest/index.html) is an open source platform for managing the end-to-end machine learning lifecycle.
 
@@ -718,6 +722,8 @@ From this page we can select a single experiment and see more information about 
 <div align="center">
   <img width="350" alt="BentoML logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml_logo.png">
 </div>
+
+:books: *Theory: the validated model is deployed to a target environment to serve predictions. In Continuous Deployment (CD) the deploied system should automatically deploy the model prediction service.*
 
 [BentoML](https://docs.bentoml.org/en/latest/), on the other hand, focuses on ML in production. By design, BentoML is agnostic to the experimentation platform and the model development environment. BentoML only focuses on serving and deploying trained models.
 
@@ -856,6 +862,8 @@ After you can open a web page `127.0.0.1:3000` to have a model serving. Example:
 <div align="center">
   <h1>kedro-docker</h1>
 </div>
+
+:books: *Theory: A Deployment pipeline is the process of taking code from version control and making it readily available to users quickly and accurately.*
 
 [kedro-docker](https://github.com/quantumblacklabs/kedro-docker) is a plugin to create a Docker image and run kedro project in a Docker environment.
 
