@@ -5,14 +5,28 @@
     <li>
       <a href="#mlops">MLOps</a>
       <ul>        
-        <li><a href="#three-level">Three Level</a></li>  
+        <li><a href="#three-level">Three Level</a></li>
+        <ul> 
+          <li><a href="#data-engineering">Data Engineering</a></li>
+          <li><a href="#model-engineering">Model Engineering</a></li>
+          <li><a href="#model-deployment">Model Deployment</a></li>
+        </ul>
+        <li><a href="#mlops-people">MLOps People</a></li>
         <li><a href="#principles">Principles</a></li>
+        <ul> 
+          <li><a href="#iterative-incremental-process">Iterative-Incremental Process</a></li>
+          <li><a href="#automation">Automation</a></li>
+          <li><a href="#continuous-deployment">Continuous Deployment</a></li>
+          <li><a href="#versioning">Versioning</a></li>
+          <li><a href="#experiments-tracking">Experiments Tracking</a></li>
+          <li><a href="#ml-based-software-delivery-metrics">ML-based Software Delivery Metrics</a></li>
+        </ul>
       </ul>
     </li>
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>        
-        <li><a href="#built-with">Built With</a></li>  
+        <li><a href="#built-with">Built With</a></li>
         <li><a href="#schema">Schema</a></li>     
       </ul>
     </li>
