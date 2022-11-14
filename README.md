@@ -126,6 +126,44 @@ MLOps combine machine learning model, application development and operations.
 
 MLOps is the result by ModelOps, DataOps and DevOps.
 
+### Data Engineering
+It is the step to acquire and prepare the data to be analyzed.
+Typically, data is being integrated from various resources and has different formats. Collecting good data sets has a huge impact on the quality and performance of the ML model.
+Therefore, the data, which has been used for training of the ML model, indirectly influence the overall performance of the production system.
+
+Data engineering pipeline:
+1. **Data Ingestion**, collecting data by using various frameworks and formats, such as as internal/external databases, data marts, OLAP cubes, data warehouses, OLTP systems, Spark, HDFS, CSV, etc.
+2. **Exploration and Validation**, data validation operations are user-defined error detection functions, which scan the dataset in order to spot some errors.
+3. **Data Wrangling (Cleaning)**, is the process of re-formatting or re-structuring particular attributes and correcting errors in data.
+4. **Data Splitting**, splitting the data into training, validation, and test datasets to be used during the core machine learning stages to produce the ML model.
+
+### Model Engineering
+The core of the ML workflow is the phase of writing and executing machine learning algorithms to obtain an ML model. 
+
+Issue: model decay, the performance of ML models in production degenerate over time because of changes in the real-life data that has not been seen during the model training.
+
+Model engineering pipeline:
+1. **Model Training**, is the process of applying the machine learning algorithm on training data to train an ML model. It also includes feature engineering and the hyperparameter tuning for the model training activity.
+2. **Model Evaluation**, validating the trained model to ensure it meets original codified objectives before serving the ML model in production to the end-user.
+3. **Model Testing**, performing the final “Model Acceptance Test” by using the hold backtest dataset to estimate the generalization error.
+4. **Model Packaging**, is the process of exporting the final ML model into a specific format (e.g. PMML, PFA, or ONNX), which describes the model, in order to be consumed by the business application.
+
+### Model Deployment
+Once we trained a machine learning model, we need to deploy it as part of a business application.
+
+This stage includes the following operations:
+1. **Model Serving**, is the process of addressing the ML model artifact in a production environment.
+2. **Model Performance Monitoring**, is the process of observing the ML model performance based on live and previously unseen data. In particular, we are interested in ML-specific signals, such as prediction deviation from previous model performance. These signals might be used as triggers for model re-training.
+3. **Model Performance Logging**, every inference request results in the log-record.
+
+### People
+Afterwards in the picture is represents a machine learning model life cycle inside an average organization today. We can observe that is involves many different people with completely different skill sets and who are often using entirely different tools.
+
+<div align="center">
+  <img width="350" alt="people" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/people.png">
+</div>
+
+
 ## Principles
 
 ### Iterative-Incremental Process 
