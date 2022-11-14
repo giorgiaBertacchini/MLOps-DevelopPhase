@@ -492,7 +492,14 @@ MLflow and Kedro are tools complementary and not conflicting:
   <img width="550" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
 </div>
 
-### Code
+### Guidelines mlflow
+
+#### Installation
+It needs to be installed
+
+```
+pip install mlflow
+```
 
 #### Logging File
 
@@ -685,13 +692,68 @@ We containerize Bentos as Docker images allows users to easily distribute and de
 bentoml containerize activities_model:latest
 ```
 
+### Guidelines bentoml
+
+#### Installation
+
+BentoML requires installation:
+
+```
+pip install bentoml
+```
+
+#### View
+
+To see all bento models:
+
+```
+bentoml models list
+```
+
+To see more about a bento model:
+
+```
+bentoml models get <name_model>:<number_version>
+```
+
+#### Build a bento model
+
+```
+bentoml build
+```
+
+#### Start Bento model in production
+
+```
+bentoml serve <name_model>:latest --production
+```
+
+#### Run Bento Server
+
+If use Windows run this without `-- reload`:
+
+```
+bentoml serve service:svc --reload
+```
+
+or more general:
+
+```
+bentoml serve
+```
+
+After you can open a web page `127.0.0.1:3000` to have a model serving. Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml.png)
+
+
 ## Deploying pipeline
 
 <div align="center">
   <h1>kedro-docker</h1>
 </div>
 
-[kedro-docker](https://github.com/quantumblacklabs/kedro-docker)
+[kedro-docker](https://github.com/quantumblacklabs/kedro-docker) is a plugin to create a Docker image and run kedro project in a Docker environment.
 
 ### Structure docker
 
@@ -710,7 +772,12 @@ For set the command:
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
 ```
 
-### Commands docker
+### Guidelines
+
+To install, run:
+```
+pip install kedro-docker
+```
 
 For create docker image of Kedro pipeline.
 
@@ -718,18 +785,37 @@ For create docker image of Kedro pipeline.
 kedro docker build --image pipeline-ml
 ```
 
+To run the docker model:
+
+```
+docker run <name_model>
+```
+
+or to production:
+
+```
+docker run <name_model> serve --production
+```
+
+Or to run the project in a Docker environment:
+
+```
+kedro docker run --image <image-name>
+```
+
+
 # Bridge
 
 ## Interactions And Communication
 
 To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/run.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/run.png)
 
 
 For communication between this project and observability step, there is a flask application with avaible API:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/app.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/app.png)
 
 
 # Getting Started
@@ -753,181 +839,3 @@ flask run --host=0.0.0.0 --port=3030
 * [neptune.ai](https://neptune.ai/blog/mlops)
 * [mlebook.com](http://www.mlebook.com/wiki/doku.php)
 * Book "Introducing MLOps How to Scale Machine Learning in the Enterprise (Mark Treveil, Nicolas Omont, Clément Stenac etc.)"
-
-
----
-
-
-
-# Tools
-
-## kedro-docker
-
-It is a plugin to create a Docker image and run kedro project in a Docker environment.
-
-To install, run:
-```
-pip install kedro-docker
-```
-
-### Docker image
-
-To create a docker image:
-
-```
-kedro docker build --image <image-name>
-```
-
-To run the project in a Docker environment:
-
-```
-kedro docker run --image <image-name>
-```
-
-### Use container registry
-
-Tag your image on your local machine:
-```
-docker tag <image-name> <DockerID>/<image-name>
-```
-
-Push the image to Docker hub:
-```
-docker push <DockerID>/<image-name>
-```
-
-Pull the image from Docker hub onto your production server:
-```
-docker pull <DockerID>/<image-name>
-```
-
-
-## mlflow
-
-### Rules and guidelines
-
-To install them, run:
-
-```
-pip install mlflow
-```
-
-### Before activate conda environment
-
-Need Python version 3.7.
-
-```
-conda create -n env_name python=3.7
-```
-
-```
-conda activate env_name
-```
-
-### How to run mlflow project
-
-You can run mlflow project with:
-
-```
-mlflow run . --experiment-name activities-example
-```
-
-### How to run mlflow project in Windows
-
-You can run mlflow project with:
-
-```
-mlflow run . --experiment-name activities-example --no-conda
-```
-
-### How to vizualize mlflow project
-
-You can run ui as follows:
-
-```
-mlflow ui
-```
-
-To see the mlflow ui go to the `270.0.0.1:5000` browser page.
-
-Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
-
-
-### Set hyperparameters
-
-Set hyperparameter in file `conf/base/parameters/data_science.yml`
-
-
-## Bentoml
-
-### Rules and guidelines
-
-To install run:
-
-```
-pip install bentoml
-```
-
-### See
-
-To see all bento models:
-
-```
-bentoml models list
-```
-
-To see more about a bento model:
-
-```
-bentoml models get <name_model>:<number_version>
-```
-
-### Build a bento model
-
-```
-bentoml build
-```
-
-### Start Bento model in production
-
-```
-bentoml serve <name_model>:latest --production
-```
-
-### Run Bento Server
-
-If use Windows run this without `-- reload`:
-
-```
-bentoml serve service:svc --reload
-```
-
-or more general:
-
-```
-bentoml serve
-```
-
-After you can open a web page `127.0.0.1:3000` to have a model serving.
-
-## Containerize
-
-To containerize:
-
-```
-bentoml containerize <name_model>:latest
-```
-
-To run the docker model:
-
-```
-docker run <name_model>
-```
-
-or to production:
-
-```
-docker run <name_model> serve --production
-```
