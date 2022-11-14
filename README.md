@@ -489,7 +489,7 @@ MLflow and Kedro are tools complementary and not conflicting:
 * MLflow create that centralized repository of metrics and progress over time
 
 <div align="center">
-  <img width="400" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
+  <img width="550" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
 </div>
 
 ### Code
@@ -602,8 +602,7 @@ From this page we can select a single experiment and see more information about 
   <img width="350" alt="BentoML logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml_logo.png">
 </div>
 
-[BentoML](https://docs.bentoml.org/en/latest/)
-BentoML, on the other hand, focuses on ML in production. By design, BentoML is agnostic to the experimentation platform and the model development environment. BentoML only focuses on serving and deploying trained models.
+[BentoML](https://docs.bentoml.org/en/latest/), on the other hand, focuses on ML in production. By design, BentoML is agnostic to the experimentation platform and the model development environment. BentoML only focuses on serving and deploying trained models.
 
 ### BentoML and MLflow
 
@@ -694,6 +693,8 @@ bentoml containerize activities_model:latest
 
 [kedro-docker](https://github.com/quantumblacklabs/kedro-docker)
 
+### Structure docker
+
 `Dockerfile` file
 
 For set the number port:
@@ -709,7 +710,7 @@ For set the command:
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
 ```
 
-### Commands
+### Commands docker
 
 For create docker image of Kedro pipeline.
 
