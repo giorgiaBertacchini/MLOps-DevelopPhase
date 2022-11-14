@@ -19,38 +19,37 @@
     <li>
       <a href="#how-it-works">How it works</a>
       <ul>
-        <li><a href="#workflow-orchestration">Workflow orchestration</a></li>
+        <li><a href="#01-workflow-orchestration">01 Workflow orchestration</a></li>
         <ul>
-          <li><a href="#structure">Structure</a></li>          
-          <li><a href="#key-elements">Key elements</a></li>
+          <li><a href="#01-structure">01 Structure</a></li>          
+          <li><a href="#01-key-elements">01 Key Elements</a></li>
           <ul>
             <li><a href="#data-catalog">Data Catalog</a></li>
             <li><a href="#node">Node</a></li>
             <li><a href="#pipeline">Pipeline</a></li>
           </ul>
-          <li><a href="#kedro-viz">Kedro-Viz</a></li>
+          <li><a href="#01-kedro-viz">01 Kedro-Viz</a></li>
         </ul>
-        <li><a href="#data-versioning">Data versioning</a></li>
+        <li><a href="#02-data-versioning">Data versioning</a></li>
         <ul>
-          <li><a href="#structure-dvc">Structure DVC</a></li>          
-          <li><a href="#key-elements-dvc">Key elements DVC</a></li>
+          <li><a href="#02-structure">02 Structure</a></li>          
+          <li><a href="#02-key-elements">02 Key Elements</a></li>
           <ul>
             <li><a href="#file-dvc">file .dvc</a></li>
             <li><a href="#set-remote-storage">Set remote storage</a></li>
           </ul>
-          <li><a href="#commands">Commands</a></li>
-          <li><a href="#more">More</a></li>
+          <li><a href="#02-guidelines">02 Guidelines</a></li>
+          <li><a href="#02-more">02 More</a></li>
         </ul>
-        <li><a href="#data-analysis-and-manipulation">Data analysis and manipulation</a></li>
+        <li><a href="#03-data-analysis-and-manipulation">03 Data analysis and manipulation</a></li>
         <ul>
-          <li><a href="#key-elements-pandas">Key elements Pandas</a></li>
-          <li><a href="#commands-pandas">Commands pandas</a></li>
-          <li><a href="#code">Code</a></li>
+          <li><a href="#03-key-elements">03 Key Elements</a></li>
+          <li><a href="#03-guidelines">03 Guidelines</a></li>
         </ul>
-        <li><a href="#model-training">Model training</a></li>
+        <li><a href="#04-model-training">04 Model training</a></li>
         <ul>
-          <li><a href="#structure-sklearn">Structure sklearn</a></li>
-          <li><a href="#key-elements-sklearn">Key elements sklearn</a></li>
+          <li><a href="#04-structure">04 Structure</a></li>
+          <li><a href="#04-key-elements">04 Key elements</a></li>
           <ul>
             <li><a href="#splitting-dataset">Splitting dataset</a></li>
             <li><a href="#estimator-and-fitting-model">Estimator and fitting model</a></li>
@@ -58,9 +57,9 @@
             <li><a href="#metrics">Metrics</a></li>
           </ul>
         </ul>
-        <li><a href="#experimentation-management">Experimentation management</a></li>   
-        <li><a href="#model-packaging-and-serving">Model packaging and serving</a></li>
-        <li><a href="#deploying-pipeline">Deploying pipeline</a></li>
+        <li><a href="#05-experimentation-management">05 Experimentation management</a></li>   
+        <li><a href="#06-model-packaging-and-serving">06 Model packaging and serving</a></li>
+        <li><a href="#07-deploying-pipeline">07 Deploying pipeline</a></li>
       </ul>
     </li>
     <li>
@@ -122,7 +121,7 @@ This project puts into practice the steps of MLOps and it is complete using the 
 
 # How it works
 
-## Workflow orchestration
+## 01 Workflow orchestration
 
 <div align="center">
   <img width="270" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_logo.png">
@@ -131,7 +130,7 @@ This project puts into practice the steps of MLOps and it is complete using the 
 As Workflow orchestration is used [Kedro](https://kedro.readthedocs.io/en/stable/), an open-source Python framework for creating reproducible, maintainable and modular data science code.
 Kedro is a template for new data engineering and data science projects. This tool provide to organize all MLOps steps in a well-defined pipeline.
 
-### Structure
+### 01 Structure
 
 When you installing and initialize a Kedro project, with the commands
 ```
@@ -151,7 +150,7 @@ after are automatic creted needed folders and files. The most important of these
   * `pipelines/` folder, with specified each pipelines
 * `src/requirements.txt` file, with needed models
 
-### Key elements
+### 01 Key Elements
 * **Data Catalog**
   * It makes the datasets declarative, rather than imperative. So all the informations related to a dataset are highly organized.
 * **Node**
@@ -263,7 +262,7 @@ def create_pipeline(**kwargs) -> Pipeline:
     )
 ```
 
-### Kedro-Viz
+### 01 Kedro-Viz
 
 It is a interactive visualization of the entire pipeline. It is a tool that can be very helpful for explaining what you're doing to people. 
 
@@ -285,7 +284,7 @@ Example:
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments.png)
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments_0.png)
 
-## Data versioning
+## 02 Data versioning
 
 <div align="center">
   <img width="280" alt="dvc logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/dvc_logo.png">
@@ -293,7 +292,7 @@ Example:
 
 Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provide to handle large files, data sets, machine learning models, and metrics.
 
-### Structure DVC
+### 02 Structure
 
 When you installing and initialize dvc setting:
 
@@ -308,7 +307,7 @@ is created `.dvc` folder, where the most important file is:
 
 * `config`, with the url to remote destination, where save the data.
 
-### Key elements DVC
+### 02 Key Elements 
 
 #### file .dvc
 
@@ -328,7 +327,7 @@ In this project is used own Google Drive, the code at path `.dvc/config` is:
     url = gdrive://1LMUFVzJn4CNaqVbMsVGZazii4Mdxsanj
 ```
 
-### Commands
+### 02 Guidelines
 
 To update data in remote storage, we use the next commands:
 
@@ -346,13 +345,13 @@ Now in Google Drive appear a new folder with the new data version.
 
 Note: If the data to save is not changed (and also saved), the file `.dvc` is not update and not appear another folder in Google Drive.
 
-### More
+### 02 More
 DVC is a more usefull tool. As Data manager, we can also create data pipeline and specify the metrics, parameters and plots. DVC is also a Experiment manager, providing comparison and visualize experiment results. 
 
 For more: LINK MIO FILE Part 3
 
 
-## Data analysis and manipulation
+## 03 Data analysis and manipulation
 
 <div align="center">
   <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/pandas_logo.png">
@@ -364,16 +363,16 @@ For more: LINK MIO FILE Part 3
 
 by [pandas.pydata.org](https://pandas.pydata.org/docs/getting_started/overview.html)
 
-### Key elements pandas
+### 03 Key Elements
 pandas will help you to explore, clean, and process your data. In pandas, a data table is called a DataFrame. If it is 1-D is called Series.
 
-### Commands pandas
+### 03 Guidelines
+
 It require the installation, also with conda:
 ```
 pip install pandas
 ```
 
-### Code
 In the code, pandas Dataframes are used in nodes as funciontion input and output. For example:
 
 ``` python
@@ -384,7 +383,7 @@ def preprocess_activities(activities: pd.DataFrame) -> Tuple[pd.DataFrame, Dict]
 def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 ```
 
-## Model training
+## 04 Model training
 
 <div align="center">
   <img width="260" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/scikitlearn_logo.png">
@@ -394,7 +393,7 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 
 It is a simple and efficient tools for predictive data analysis and it also provides various tools for model fitting, data preprocessing, model selection, model evaluation.
 
-### Structure sklearn
+### 04 Structure
 
 For change the parameters, update `conf/base/parameters/data_science.yml` file with settings use during model management.
 
@@ -424,7 +423,7 @@ node(
 ),
 ```
 
-### Key elements sklearn
+### 04 Key Elements
 
 Note: the next codes are take from `src/kedro_ml/pipelines/data_science/nodes.py`.
 
@@ -473,7 +472,7 @@ mse = metrics.mean_squared_error(y_val, y_pred)
 me = metrics.max_error(y_val, y_pred)
 ```
 
-## Experimentation management
+## 05 Experimentation management
 
 <div align="center">
   <img width="280" alt="MLflow logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_logo.png">
@@ -492,7 +491,7 @@ MLflow and Kedro are tools complementary and not conflicting:
   <img width="550" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
 </div>
 
-### Guidelines mlflow
+### 05 Guidelines
 
 #### Installation
 It needs to be installed
@@ -542,7 +541,7 @@ mlflow.log_metric("max_error", me)
 mlflow.set_tag("Model Type", "Random Forest")
 ```
 
-### Structure
+### 05 Structure
 
 For specify more options is used `MLproject` file:
 
@@ -603,7 +602,7 @@ From this page we can select a single experiment and see more information about 
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_experiment.png)
 
-## Model packaging and serving
+## 06 Model packaging and serving
 
 <div align="center">
   <img width="350" alt="BentoML logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml_logo.png">
@@ -617,7 +616,7 @@ MLFlow focuses on loading and running a model, while BentoML provides an abstrac
 
 BentoML is more feature-rich in terms of serving, it supports many essential model serving features that are missing in MLFlow, including multi-model inference, API server dockerization, built-in Prometheus metrics endpoint and many more.
 
-### Structure bentoml
+### 06 Structure
 
 BentoML stores all packaged model files under the `~/bentoml/repository/{service_name}/{service_version}` directory by default. The BentoML packaged model format contains all the code, files, and configs required to run and deploy the model.
 
@@ -637,7 +636,7 @@ docker:
   - BENTOML_PORT=3005
 ```
 
-### Key elements bentoml
+### 06 Key Elments
 
 The BentoML basic steps are two:
 * save the machine learning model
@@ -692,7 +691,7 @@ We containerize Bentos as Docker images allows users to easily distribute and de
 bentoml containerize activities_model:latest
 ```
 
-### Guidelines bentoml
+### 06 Guidelines
 
 #### Installation
 
@@ -747,7 +746,7 @@ After you can open a web page `127.0.0.1:3000` to have a model serving. Example:
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml.png)
 
 
-## Deploying pipeline
+## 07 Deploying pipeline
 
 <div align="center">
   <h1>kedro-docker</h1>
@@ -755,7 +754,7 @@ After you can open a web page `127.0.0.1:3000` to have a model serving. Example:
 
 [kedro-docker](https://github.com/quantumblacklabs/kedro-docker) is a plugin to create a Docker image and run kedro project in a Docker environment.
 
-### Structure docker
+### 07 Structure
 
 `Dockerfile` file
 
@@ -772,7 +771,7 @@ For set the command:
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
 ```
 
-### Guidelines
+### 07 Guidelines
 
 To install, run:
 ```
