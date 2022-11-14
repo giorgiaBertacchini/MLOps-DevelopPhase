@@ -489,7 +489,7 @@ MLflow and Kedro are tools complementary and not conflicting:
 * MLflow create that centralized repository of metrics and progress over time
 
 <div align="center">
-  <img width="400" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
+  <img width="400" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
 </div>
 
 ### Code
@@ -546,11 +546,13 @@ entry_points:
   main:
     command: "kedro run"
 ```
+So when run mlflow is execute the command `kedro run`.
 
+#### Commands mlflow
 
 ### Before activate conda environment
 
-Need Python version 3.7.
+Need Python version 3.7. Using conda:
 
 ```
 conda create -n env_name python=3.7
@@ -590,6 +592,9 @@ Example:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
 
+From this page we can select a single experiment and see more information about it. Example:
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_experiment.png)
 
 ## Model packaging and serving
 
@@ -598,7 +603,51 @@ Example:
 </div>
 
 [BentoML](https://docs.bentoml.org/en/latest/)
+BentoML, on the other hand, focuses on ML in production. By design, BentoML is agnostic to the experimentation platform and the model development environment. BentoML only focuses on serving and deploying trained models.
 
+### BentoML and MLflow
+
+MLFlow focuses on loading and running a model, while BentoML provides an abstraction to build a prediction service, which includes the necessary pre-processing and post-processing logic in addition to the model itself.
+
+BentoML is more feature-rich in terms of serving, it supports many essential model serving features that are missing in MLFlow, including multi-model inference, API server dockerization, built-in Prometheus metrics endpoint and many more.
+
+### Structure bentoml
+
+BentoML stores all packaged model files under the `~/bentoml/repository/{service_name}/{service_version}` directory by default. The BentoML packaged model format contains all the code, files, and configs required to run and deploy the model.
+
+#### Configuration
+
+`bentofile.yaml`
+
+``` yaml
+service: "service:svc"
+include:
+  - "service.py"
+  - "src/kedro_ml/pipelines/data_processing/nodes.py"
+conda:
+  environment_yml: "./conda.yaml"
+docker:
+  env:
+  - BENTOML_PORT=3005
+```
+
+### Key elements bentoml
+
+The BentoML basic steps are two:
+* save the machine learning model
+* create a prediction service
+
+#### Save Model
+
+In `src/pipeline/data_science/nodes.py` file, to save the model is used to help MLflow, included in BentoML module.
+
+``` python
+import bentoml
+
+bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
+```
+
+#### Prediction Service
 
 `service.py` file
 
@@ -618,25 +667,23 @@ def predict(input_data: pd.DataFrame):
   return model_runner.predict.run(input_data)
 ```
 
+#### Deploy Bento
 
-`bentofile.yaml`
+Bento is a file archive with all the source code, models, data files and dependency configurations required for running a user-defined bentoml.Service, packaged into a standardized format. Bento is crete with the command:
 
-``` yaml
-service: "service:svc"
-include:
-  - "service.py"
-  - "src/kedro_ml/pipelines/data_processing/nodes.py"
-conda:
-  environment_yml: "./conda.yaml"
-docker:
-  env:
-  - BENTOML_PORT=3005
+```
+bentoml build
 ```
 
-`src/pipeline/data_science/nodes.py`
+The three most common deployment options with BentoML are:
+* 🐳 Generate container images from Bento for custom docker deployment
+* 🦄️ Yatai: Model Deployment at scale on Kubernetes
+* 🚀 bentoctl: Fast model deployment on any cloud platform
 
-``` python
-bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
+We containerize Bentos as Docker images allows users to easily distribute and deploy bentos. With the command:
+
+```
+bentoml containerize activities_model:latest
 ```
 
 ## Deploying pipeline
@@ -660,6 +707,14 @@ For set the command:
 ``` python
 #CMD ["kedro", "run"]
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
+```
+
+### Commands
+
+For create docker image of Kedro pipeline.
+
+```
+kedro docker build --image pipeline-ml
 ```
 
 # Bridge
