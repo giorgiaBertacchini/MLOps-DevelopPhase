@@ -242,10 +242,7 @@ Kedro is a template for new data engineering and data science projects. This too
 
 ### 01 Structure
 
-When you installing and initialize a Kedro project, with the commands
-```
-pip install kedro
-```
+When you initialize a Kedro project, with the command:
 ```
 kedro new
 ```
