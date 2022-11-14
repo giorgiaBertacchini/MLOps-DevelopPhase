@@ -30,7 +30,7 @@
           </ul>
           <li><a href="#01-guidelines">01 Guidelines</a></li>
         </ul>
-        <li><a href="#02-data-versioning">Data versioning</a></li>
+        <li><a href="#02-data-versioning">02 Data versioning</a></li>
         <ul>
           <li><a href="#02-structure">02 Structure</a></li>          
           <li><a href="#02-key-elements">02 Key Elements</a></li>
@@ -124,8 +124,44 @@ by [MLOps SIG](https://github.com/cdfoundation/sig-mlops/blob/main/roadmap/2020/
 
 MLOps combine machine learning model, application development and operations.
 
+MLOps is the result by ModelOps, DataOps and DevOps.
+
 ## Principles
 
+### Iterative-Incremental Process 
+The complete MLOps process includes three broad phases of “Designing the ML-powered application”, “ML Experimentation and Development”, and “ML Operations”.
+
+All three phases are interconnected and influence each other.
+
+### Automation
+The level of automation of the Data, ML Model, and Code pipelines determines the maturity of the ML process. With increased maturity, the velocity for the training of new models is also increased.
+
+The objective of an MLOps team is to automate the deployment of ML models into the core software system or as a service component.
+There are three levels of MLOps automation, starting from the initial level with manual model training and deployment, up to running both ML and CI/CD pipelines automatically.
+
+### Continuous Deployment
+We are interested in the identity, components, versioning, and dependencies of these ML artifacts. The target destination for an ML artifact may be a (micro-) service or some infrastructure components.
+
+A deployment service provides orchestration, logging, monitoring, and notification to ensure that the ML models, code and data artifacts are stable.
+
+### Versioning
+The goal of the versioning is to treat ML training scrips, ML models and data sets by tracking ML models and data sets with version control systems.
+With data scientists building, testing, and iterating on several versions of models, they need to be able to keep all the versions straight.
+
+Furthermore, every ML model specification should be versioned in a VCS to make the training of ML models auditable and reproducible.
+
+### Experiments Tracking
+
+In contrast to the traditional software development process, in ML development, multiple experiments on model training can be executed in parallel before making the decision what model will be promoted to production.
+
+### ML-based Software Delivery Metrics
+There are  four key metrics to measure and improve ones ML-based software delivery: 
+* Deployment Frequency, how often does your organization deploy code to production or release it to end-users?
+* Lead Time for Changes, how long does it take to go from code committed to code successfully running in production?
+* Mean Time To Restore, how long does it generally take to restore service when a service incident or a defect that impacts users occurs?
+* Change Fail Percentage, what percentage of changes to production or released to users result in degraded service  and subsequently require remediation?
+
+These are the same for capture the effectivenes of the software development and delivery of elite/high performing organisations.
 
 # About The Project
 This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
@@ -838,14 +874,15 @@ To interact with pipeline and all step, there is run.py that answer to command l
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/run.png)
 
 
-For communication between this project and observability step, there is a flask application with avaible API:
+For communication between this project and observability step, there is a [Flask](https://flask.palletsprojects.com/en/2.2.x/) application with avaible API:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/app.png)
 
+---
 
 # Getting Started
 
-To run flask application: 
+To run Flask application: 
 
 ```
 flask run --host=0.0.0.0 --port=3030
