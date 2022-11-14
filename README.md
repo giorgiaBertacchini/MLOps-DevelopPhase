@@ -28,7 +28,7 @@
             <li><a href="#node">Node</a></li>
             <li><a href="#pipeline">Pipeline</a></li>
           </ul>
-          <li><a href="#01-kedro-viz">01 Kedro-Viz</a></li>
+          <li><a href="#01-guidelines">01 Guidelines</a></li>
         </ul>
         <li><a href="#02-data-versioning">Data versioning</a></li>
         <ul>
@@ -49,7 +49,7 @@
         <li><a href="#04-model-training">04 Model training</a></li>
         <ul>
           <li><a href="#04-structure">04 Structure</a></li>
-          <li><a href="#04-key-elements">04 Key elements</a></li>
+          <li><a href="#04-key-elements">04 Key Elements</a></li>
           <ul>
             <li><a href="#splitting-dataset">Splitting dataset</a></li>
             <li><a href="#estimator-and-fitting-model">Estimator and fitting model</a></li>
@@ -58,8 +58,29 @@
           </ul>
         </ul>
         <li><a href="#05-experimentation-management">05 Experimentation management</a></li>   
+        <ul>
+          <li><a href="#05-collaboration">05 Collaboration</a></li>
+          <li><a href="#05-guidelines">05 Guidelines</a></li>
+          <li><a href="#05-structure">05 Structure</a></li>
+        </ul>      
         <li><a href="#06-model-packaging-and-serving">06 Model packaging and serving</a></li>
+        <ul>
+          <li><a href="#06-collaboration">06 Collaboration</a></li>          
+          <li><a href="#06-structure">06 Structure</a></li>
+          <li><a href="#06-key-elements">06 Key Elements</a></li>
+          <ul>
+            <li><a href="#save-model">Save Model</a></li>          
+            <li><a href="#prediction-service">Prediction Service</a></li>
+            <li><a href="#deploy-bento">Deploy Bento</a></li>
+            <li><a href="#06-guidelines">06 Guidelines</a></li>
+          </ul>  
+          <li><a href="#06-guidelines">06 Guidelines</a></li>
+        </ul>  
         <li><a href="#07-deploying-pipeline">07 Deploying pipeline</a></li>
+        <ul>
+          <li><a href="#07-structure">07 Structure</a></li>
+          <li><a href="#07-guidelines">07 Guidelines</a></li>
+        </ul>
       </ul>
     </li>
     <li>
@@ -262,9 +283,16 @@ def create_pipeline(**kwargs) -> Pipeline:
     )
 ```
 
-### 01 Kedro-Viz
+### 01 Guidelines
 
-It is a interactive visualization of the entire pipeline. It is a tool that can be very helpful for explaining what you're doing to people. 
+Kedro requires installation:
+
+```
+pip install kedro
+```
+
+Kedro have also a GUI, called Kedro-Viz.
+Kedro-Viz is a interactive visualization of the entire pipeline. It is a tool that can be very helpful for explaining what you're doing to people. 
 
 To see the kedro ui:
 
@@ -294,11 +322,8 @@ Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provi
 
 ### 02 Structure
 
-When you installing and initialize dvc setting:
+When you initialize dvc setting:
 
-```
-pip install dvc
-```
 ```
 dvc init
 ```
@@ -328,6 +353,11 @@ In this project is used own Google Drive, the code at path `.dvc/config` is:
 ```
 
 ### 02 Guidelines
+
+DVC needs to be installed:
+```
+pip install dvc
+```
 
 To update data in remote storage, we use the next commands:
 
@@ -472,6 +502,13 @@ mse = metrics.mean_squared_error(y_val, y_pred)
 me = metrics.max_error(y_val, y_pred)
 ```
 
+### 04 Guidelines
+
+It needs to be installed:
+```
+pip install -U scikit-learn
+```
+
 ## 05 Experimentation management
 
 <div align="center">
@@ -482,7 +519,7 @@ me = metrics.max_error(y_val, y_pred)
 
 MLFlow can be very helpful in terms of tracking metrics over time. We can visualize that and communicate what is the progress over time. MLFlow centralize all of these metrics and also the models generates.
 
-### MLflow and Kedro
+### 05 Collaboration
 MLflow and Kedro are tools complementary and not conflicting:
 * Kedro is the foundation of your data science and data engineering project
 * MLflow create that centralized repository of metrics and progress over time
@@ -610,7 +647,7 @@ From this page we can select a single experiment and see more information about 
 
 [BentoML](https://docs.bentoml.org/en/latest/), on the other hand, focuses on ML in production. By design, BentoML is agnostic to the experimentation platform and the model development environment. BentoML only focuses on serving and deploying trained models.
 
-### BentoML and MLflow
+### 06 Collaboration
 
 MLFlow focuses on loading and running a model, while BentoML provides an abstraction to build a prediction service, which includes the necessary pre-processing and post-processing logic in addition to the model itself.
 
@@ -636,7 +673,7 @@ docker:
   - BENTOML_PORT=3005
 ```
 
-### 06 Key Elments
+### 06 Key Elements
 
 The BentoML basic steps are two:
 * save the machine learning model
