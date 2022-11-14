@@ -156,13 +156,12 @@ This stage includes the following operations:
 2. **Model Performance Monitoring**, is the process of observing the ML model performance based on live and previously unseen data. In particular, we are interested in ML-specific signals, such as prediction deviation from previous model performance. These signals might be used as triggers for model re-training.
 3. **Model Performance Logging**, every inference request results in the log-record.
 
-### People
+## MLOps People
 Afterwards in the picture is represents a machine learning model life cycle inside an average organization today. We can observe that is involves many different people with completely different skill sets and who are often using entirely different tools.
 
 <div align="center">
-  <img width="350" alt="people" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/people.png">
+  <img width="550" alt="people" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/people.png">
 </div>
-
 
 ## Principles
 
@@ -221,6 +220,8 @@ This project puts into practice the steps of MLOps and it is complete using the 
 <div align="center">
   <img width="270" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_logo.png">
 </div>
+
+:books: *Theory: This apply CI/CD methodology. The desire in MLOps is to automate the CI/CD pipeline as far as possible.*
 
 As Workflow orchestration is used [Kedro](https://kedro.readthedocs.io/en/stable/), an open-source Python framework for creating reproducible, maintainable and modular data science code.
 Kedro is a template for new data engineering and data science projects. This tool provide to organize all MLOps steps in a well-defined pipeline.
@@ -392,6 +393,8 @@ Example:
   <img width="280" alt="dvc logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/dvc_logo.png">
 </div>
 
+:books: *Theory: versioning is essential to reproduce the experiments. Reproducibility in MLOps also involves the ability to easily rerun the exact same experiment.*
+
 Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provide to handle large files, data sets, machine learning models, and metrics.
 
 ### 02 Structure
@@ -460,6 +463,8 @@ For more: LINK MIO FILE Part 3
 <div align="center">
   <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/pandas_logo.png">
 </div>
+
+:books: *Theory:
 
 [pandas](https://pandas.pydata.org/docs/) is a Python package providing fast, flexible, and expressive data structures.
 
