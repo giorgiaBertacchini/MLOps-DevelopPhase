@@ -963,4 +963,5 @@ flask run --host=0.0.0.0 --port=3030
 * [neptune.ai](https://neptune.ai/blog/mlops)
 * [mlebook.com](http://www.mlebook.com/wiki/doku.php)
 * [cloud.google.com about MLOps](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)
+* [Made With ML](https://madewithml.com/courses/mlops/)
 * Book "Introducing MLOps How to Scale Machine Learning in the Enterprise (Mark Treveil, Nicolas Omont, Clément Stenac etc.)"
