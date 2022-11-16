@@ -1,0 +1,34 @@
+##########################
+# Kedro PROJECT
+
+# ignore Dockerfile and .dockerignore
+Dockerfile
+.dockerignore
+
+# ignore potentially sensitive credentials files
+conf/**/*credentials*
+
+# ignore all local configuration
+conf/local
+!conf/local/.gitkeep
+
+# ignore everything in the following folders
+data
+logs
+notebooks
+references
+results
+mlruns
+my_model
+
+# except the following
+!data/01_raw/DATA.csv
+!data/01_raw/DATA.csv.dvc
+!data/08_reporting/feature_importance.png
+!data/08_reporting/residuals.png
+!data/09_tracking/**
+!data/last_version.txt
+!logs/.gitkeep
+!notebooks/.gitkeep
+!references/.gitkeep
+!results/.gitkeep

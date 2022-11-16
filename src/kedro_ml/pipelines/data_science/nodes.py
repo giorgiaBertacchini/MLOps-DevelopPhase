@@ -25,7 +25,6 @@ import bentoml
 
 def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
     """Splits data into features and targets training (60%), test (20%) and validation (20%) sets.
-
     Args:
         data: Data containing features and target.
         parameters: Parameters defined in parameters/data_science.yml.
@@ -43,15 +42,12 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple:
 
 def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> LinearRegression:
     """Trains the model.
-
     Args:
         X_train: Training data of independent features.
         y_train: Training data for price.
-
     Returns:
         Trained model.
-    """    
-    #mlflow.set_experiment('activities-example')
+    """
     mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 
     regressor = LinearRegression()
@@ -95,26 +91,36 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     mlflow.log_param('fit_intercept', parameters["fit_intercept"])
     mlflow.log_param('copy_X', parameters["copy_X"])
 
+    # logging name reference dataset (DATA.csv) in Google Drive
+    with open(os.path.join("files", os.getcwd(),'data','01_raw','DATA.csv.dvc', ), "r") as f:
+        lines = f.readlines()
+        count = 0
+        for line in lines:
+            if (count == 1):             
+                mlflow.set_tag('dataset_original', str(line)[7:])
+                break
+            count += 1
+
     # Report training set score
     train_score = regressor.score(X_train, y_train) * 100
     
     logger.info("Model has a accurancy of %.3f on train data.", train_score)
     
-    return regressor
+    return regressor, {"test_size": parameters["test_size"], "val_size": parameters["val_size"], "max_depth": parameters["max_depth"], "random_state": parameters["random_state"]}
 
 
 def evaluate_model(regressor: LinearRegression, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
     """Calculates and logs the coefficient of determination.
-
     Args:
         regressor: Trained model.
         X_val: Valuate data of independent features.
         y_val: Valuate data for quality.
-
     Returns:
         Values from predict.
     """
     # score returns the coefficient of determination of the prediction. Best possible score is 1.0, lower values are worse.
+    # we multiply it * 100, so the best score is 100.
+
     score = regressor.score(X_val, y_val) * 100
 
     y_pred = regressor.predict(X_val)
@@ -144,12 +150,10 @@ def testing_model(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd.
         Unit testing, integration testing.
         Performing the final “Model Acceptance Test” by using the hold backtest dataset to estimate the generalization error
         compare the model with its previous version
-
      Args:
         regressor: Trained model.
         X_test: Test data of independent features.
         y_test: Test data for quality.
-
     Returns:
         Values from testing versions.
     """
@@ -172,7 +176,7 @@ def testing_model(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd.
                     best_version = dirname
     
     # Write directory name last version 
-    with open("data/last_version.txt", 'w') as outfile:
+    with open(os.path.join(os.getcwd(), 'data', "last_version.txt"), 'w') as outfile:
         outfile.write(dirname)
     
     versions_differnce[dirname] = test_accuracy
@@ -182,10 +186,13 @@ def testing_model(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd.
     mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
     mlflow.set_tag("Model Version", dirname)
     mlflow.set_tag("mlflow.runName", dirname)
-    # save in directory my_model
-    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))  
-    
-    bentoml.mlflow.import_model("my_model", model_uri = os.path.join(os.getcwd(), 'my_model', dirname))
+
+    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))
+    with open(os.path.join(os.getcwd(), 'my_model', dirname, "MLmodel"), 'a') as model_file:        
+        model_file.write("model_version: {}".format(dirname))
+     
+    bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
+
 
     logger = logging.getLogger(__name__)
     if (best_version != 'new version'):
@@ -202,7 +209,6 @@ def testing_model(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd.
 
 def plot_feature_importance(regressor: LinearRegression, data: pd.DataFrame) -> pd.DataFrame:
     """Create plot of feature importance and save into png
-
      Args:
         regressor: Trained model.
         data: Data containing features and target.
@@ -244,7 +250,6 @@ def plot_residuals(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd
     """Create plot of residuals and save into png
     A residual is a measure of how far away a point is vertically from the regression line. 
     Simply, it is the error between a predicted value and the observed actual value.
-
      Args:
         regressor: Trained model.
         X_test: Testing data of independent features.
@@ -268,8 +273,8 @@ def plot_residuals(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd
 
     # Make it pretty- square aspect ratio
     ax.plot()
-    plt.ylim((3,7))
-    plt.xlim((-2,12))
+    #plt.ylim((3,7))
+    #plt.xlim((-2,12))
 
     plt.tight_layout()
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)
@@ -281,6 +286,7 @@ def plot_residuals(regressor: LinearRegression, X_test: pd.DataFrame, y_test: pd
     return res_df
 
 def plot_differences(test_difference: json) -> pd.DataFrame:
+
     """Create plot of differences between versions and save into png.
 
     Args:

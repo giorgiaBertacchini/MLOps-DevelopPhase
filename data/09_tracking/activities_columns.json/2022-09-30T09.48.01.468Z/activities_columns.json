@@ -1,0 +1,15 @@
+{
+  "columns": [
+    "Date",
+    "Activity ID",
+    "Type",
+    "Distance (km)",
+    "Duration",
+    "Average Speed (km/h)",
+    "Calories Burned",
+    "Climb (m)",
+    "Average Heart rate (tpm)",
+    "Quality"
+  ],
+  "data_type": "activities"
+}

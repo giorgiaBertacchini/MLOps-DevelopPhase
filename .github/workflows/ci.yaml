@@ -27,13 +27,28 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         kedro run
-        
+                
     - name: Create CML report - metrics
       env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |        
         echo "## Data metrics" > report.md
-        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md            
+        cat "data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json" >> report.md   
+        
+        #echo "## Last version" >> report.md
+        #cat "data/last_version.txt" >> report.md   
+        
+        cml-send-comment report.md
+
+        #echo "## Hyperparametes" >> report.md
+        #cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
+        
+    - name: Create CML report - Columns
+      env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: | 
+        echo "## Columns" > report.md
+        cat "data/09_tracking/activities_columns.json/$( cat data/last_version.txt )/activities_columns.json" >> report.md   
 
         cml-send-comment report.md
         
@@ -45,7 +60,4 @@ jobs:
         cml-publish data/08_reporting/feature_importance.png --md >> report.md
         cml-publish data/08_reporting/residuals.png --md >> report.md
         
-        echo "# Data accuracy" >> report.md
-        #dvc plots show -y accurancy data/09_tracking/metrics.json/$( cat data/last_version.txt )/metrics.json
-              
         cml-send-comment report.md
