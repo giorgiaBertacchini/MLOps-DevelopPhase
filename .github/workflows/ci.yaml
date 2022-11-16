@@ -39,6 +39,7 @@ jobs:
         #cat "data/last_version.txt" >> report.md   
         
         cml-send-comment report.md
+        
         #echo "## Hyperparametes" >> report.md
         #cat "data/09_tracking/hyperparameters.json/$( cat data/last_version.txt )/hyperparameters.json" >> report.md
         
