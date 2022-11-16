@@ -6,7 +6,6 @@ import yaml
 import json
 
 from run import update_data, run_retrain, bentoml_set
-from src.kedro_ml.pipelines.data_processing.nodes import create_model_input_table
 
 
 app = Flask(__name__)

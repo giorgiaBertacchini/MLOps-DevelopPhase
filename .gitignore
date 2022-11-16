@@ -13,7 +13,6 @@ conf/local/**
 conf/**/*credentials*
 
 # ignore everything in the following folders
-#data/**
 logs/**
 mlruns/**
 my_model/**
@@ -27,10 +26,6 @@ my_model/**
 
 # also keep the example dataset
 !data/01_raw/DATA.csv
-#!data/08_reporting/feature_importance.png
-#!data/08_reporting/residuals.png
-#!data/09_tracking/**
-#!data/last_version.txt
 
 ##########################
 # Common files

@@ -6,7 +6,6 @@
 activities:
   type: pandas.CSVDataSet
   filepath: data/01_raw/DATA.csv
-  #versioned: true
 
 exploration_activities:
   type: tracking.MetricsDataSet
@@ -23,20 +22,10 @@ model_input_table:
   filepath: data/04_feature/model_input_table.csv
   versioned: true
 
-#scores:
-  #type: tracking.MetricsDataSet
-  #filepath: data/05_model_input/scores.json
-  #versioned: true
-
 regressor:
   type: pickle.PickleDataSet
   filepath: data/06_models/regressor.pickle
   versioned: true
-
-#plot_feature_importance_img:
-#  type: matplotlib.MatplotlibWriter
-#  filepath: data/08_reporting/plot_feature_importance.png
-#  versioned: true
 
 plot_feature_importance_img:
   type: plotly.PlotlyDataSet

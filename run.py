@@ -4,7 +4,6 @@ import sys
 from typing import List
 import shutil
 import pandas as pd
-import json, yaml
 
 def setup_logger():
     logging.basicConfig(
@@ -13,7 +12,6 @@ def setup_logger():
 
 def update_data(dataset: pd.DataFrame):
     logging.info("Load new dataset in project.")
-    #shutil.copyfile(url, './data/01_raw/DATA.csv')
     dataset.to_csv('./data/01_raw/DATA.csv', index=False)
 
 def update_data_url(url: str):

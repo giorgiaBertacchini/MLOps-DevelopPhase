@@ -47,8 +47,7 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
         y_train: Training data for price.
     Returns:
         Trained model.
-    """    
-    #mlflow.set_experiment('activities-example')
+    """
     mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 
     regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
@@ -123,7 +122,6 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
     """
     # score returns the coefficient of determination of the prediction. Best possible score is 1.0, lower values are worse.
     # we multiply it * 100, so the best score is 100.
-    #scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
     score = regressor.score(X_val, y_val) * 100
 
     y_pred = regressor.predict(X_val)
@@ -231,7 +229,6 @@ def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame
     ax.set_title('Random forest\nfeature importance', fontsize = title_fs)
 
     plt.tight_layout()
-    #plt.savefig("feature_importance.png",dpi=120) 
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','feature_importance.png'), dpi=120)
     plt.close()
 

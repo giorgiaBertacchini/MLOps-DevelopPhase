@@ -18,7 +18,6 @@ RUN chown -R kedro:${KEDRO_GID} /home/kedro
 USER kedro
 RUN chmod -R a+w /home/kedro
 
-#EXPOSE 8888
 EXPOSE 3030
 
 #CMD ["kedro", "run"]
