@@ -1,0 +1,6 @@
+{
+  "test_size": 0.2,
+  "val_size": 0.25,
+  "max_depth": 1,
+  "random_state": 42
+}

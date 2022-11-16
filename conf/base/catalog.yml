@@ -27,15 +27,67 @@ regressor:
   filepath: data/06_models/regressor.pickle
   versioned: true
 
-#plot_feature_importance_img:
-#  type: matplotlib.MatplotlibWriter
-#  filepath: data/08_reporting/plot_feature_importance.png
-#  versioned: true
+plot_feature_importance_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/08_reporting/plot_feature_importance_img.json
+  versioned: true
+  plotly_args:
+    type: bar
+    fig:
+      x: importance
+      y: feature
+      orientation: h
+    layout:
+      xaxis_title: importance
+      yaxis_title: feature
+      title: Importance for feature
+
+plot_residuals_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/08_reporting/plot_residuals_img.json
+  versioned: true
+  plotly_args:
+    type: scatter
+    fig:
+      x: true_
+      y: pred
+      orientation: h
+    layout:
+      xaxis_title: True activities quality
+      yaxis_title: Predicted activities quality
+      title: Residuals
+
+hyperparameters:
+  type: tracking.JSONDataSet
+  filepath: data/09_tracking/hyperparameters.json
+  versioned: true
 
 metrics:
   type: tracking.MetricsDataSet
   filepath: data/09_tracking/metrics.json
+  versioned: true
 
 activities_columns:
   type: tracking.JSONDataSet
   filepath: data/09_tracking/activities_columns.json
+  versioned: true
+
+test_difference:
+  type: tracking.JSONDataSet
+  filepath: data/10_testing/test_difference.json
+  versioned: true
+
+plot_differences_img:
+  type: plotly.PlotlyDataSet
+  filepath: data/10_testing/plot_differences_img.json
+  versioned: true
+  plotly_args:
+    type: scatter
+    fig:
+      x: versions
+      y: accurancy
+      orientation: h
+    layout:
+      xaxis_title: versions
+      yaxis_title: accurancy
+      title: Accurancies between versions
