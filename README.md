@@ -1,9 +1,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img width="400" alt="logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/logo.png">
-  <h3 align="center">MLOps</h3>
-  <h4 align="center">To automate and encourage machine learning in enterprises!</h4>
+  <img width="200" alt="logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/logo.png">
+  <h1 align="center">MLOps</h1>
+  <h3 align="center">To automate and encourage machine learning in enterprises!</h3>
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -11,7 +11,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#mlops">MLOps</a>
+      <a href="#mlops-notion">MLOps Notion</a>
       <ul>        
         <li><a href="#three-level">Three Level</a></li>
         <ul> 
@@ -128,7 +128,7 @@
 </details>
 
 
-# MLOps
+# MLOps Notion
 MLOps is designed to facilitate the installation of ML software in a production environment. 
 Machine Learning Operations (MLOps).
 
