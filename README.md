@@ -201,6 +201,12 @@ With data scientists building, testing, and iterating on several versions of mod
 
 Furthermore, every ML model specification should be versioned in a VCS to make the training of ML models auditable and reproducible.
 
+### Reproducibility
+
+In general, reproducibility in MLOps also involves the ability to easily rerun the exact same experiment. Data scientists may neet to have the ability to go back to different "branches" of the experiments—for example, restoring a previous state of a project.
+
+ML reproducibility must provide relevant metadata and information to reproduce models. Model metadata management includes the type of algorithm, features and transformations, data snapshots, hyperparameters, performance metrics, verifiable code from source code management, and the training environment.
+
 ### Experiments Tracking
 
 Experimentation takes place throughout the entire model development process, and usually every important decision or assumption comes with at least some experiment or previous research to justify it.
