@@ -1,3 +1,11 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <img width="400" alt="logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/logo.png">
+  <h3 align="center">MLOps</h3>
+  <h4 align="center">To automate and encourage machine learning in enterprises!</h4>
+</div>
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
