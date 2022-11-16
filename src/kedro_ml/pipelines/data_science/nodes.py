@@ -106,7 +106,7 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     
     logger.info("Model has a accurancy of %.3f on train data.", train_score)
     
-    return regressor, {"test_size": parameters["test_size"], "val_size": parameters["val_size"], "max_depth": parameters["max_depth"], "random_state": parameters["random_state"]}
+    return regressor, {"test_size": parameters["test_size"], "val_size": parameters["val_size"], "fit_intercept": parameters["fit_intercept"], "copy_X": parameters["copy_X"], "random_state": parameters["random_state"]}
 
 
 def evaluate_model(regressor: LinearRegression, X_val: pd.DataFrame, y_val: pd.Series) -> Dict[str, float]:
