@@ -47,8 +47,7 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
         y_train: Training data for price.
     Returns:
         Trained model.
-    """    
-    #mlflow.set_experiment('activities-example')
+    """
     mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 
     regressor = RandomForestRegressor(max_depth=parameters["max_depth"], random_state=parameters["random_state"])
@@ -61,7 +60,7 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     # define search space
     space = dict()
     space['max_depth'] = [1,2,3]
-    space['random_state'] = [40,41,42,43]
+    space['random_state'] = [41,42,43,44]
 
     # define search
     search = GridSearchCV(regressor, space, scoring='neg_mean_absolute_error')
@@ -94,6 +93,16 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: Dict) -> 
     mlflow.log_param('max_depth', parameters["max_depth"])
     mlflow.log_param('random_state', parameters["random_state"])
 
+    # logging name reference dataset (DATA.csv) in Google Drive
+    with open(os.path.join("files", os.getcwd(),'data','01_raw','DATA.csv.dvc', ), "r") as f:
+        lines = f.readlines()
+        count = 0
+        for line in lines:
+            if (count == 1):             
+                mlflow.set_tag('dataset_original', str(line)[7:])
+                break
+            count += 1
+
     # Report training set score
     train_score = regressor.score(X_train, y_train) * 100
 
@@ -112,7 +121,7 @@ def evaluate_model(regressor: RandomForestRegressor, X_val: pd.DataFrame, y_val:
         Values from predict.
     """
     # score returns the coefficient of determination of the prediction. Best possible score is 1.0, lower values are worse.
-    #scores_cross = cross_val_score(regressor, X_val, y_val, cv=5, scoring='neg_root_mean_squared_error')
+    # we multiply it * 100, so the best score is 100.
     score = regressor.score(X_val, y_val) * 100
 
     y_pred = regressor.predict(X_val)
@@ -178,16 +187,16 @@ def testing_model(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_test
     mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
     mlflow.set_tag("Model Version", dirname)
     mlflow.set_tag("mlflow.runName", dirname)
-    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))   
+    mlflow.sklearn.save_model(regressor, os.path.join(os.getcwd(), 'my_model', dirname))
     with open(os.path.join(os.getcwd(), 'my_model', dirname, "MLmodel"), 'a') as model_file:        
         model_file.write("model_version: {}".format(dirname))
-
+     
     bentoml.mlflow.import_model("my_model", model_uri= os.path.join(os.getcwd(), 'my_model', dirname))
 
     logger = logging.getLogger(__name__)
     if (best_version != 'new version'):
         logger.info("ATTENTION!!!\nMODEL VERSION  %s have best metrics.", best_version)
-        mlflow.set_tag("Is Model Version Best", "No")        
+        mlflow.set_tag("Is Model Version Best", "No")
         mlflow.set_tag("Model Version with best metrics", best_version)
     else:
         mlflow.set_tag("Is Model Version Best", "Yes")
@@ -220,7 +229,6 @@ def plot_feature_importance(regressor: RandomForestRegressor, data: pd.DataFrame
     ax.set_title('Random forest\nfeature importance', fontsize = title_fs)
 
     plt.tight_layout()
-    #plt.savefig("feature_importance.png",dpi=120) 
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','feature_importance.png'), dpi=120)
     plt.close()
 
@@ -251,8 +259,8 @@ def plot_residuals(regressor: RandomForestRegressor, X_test: pd.DataFrame, y_tes
 
     # Make it pretty- square aspect ratio
     ax.plot()
-    plt.ylim((3,7))
-    plt.xlim((-2,12))
+    #plt.ylim((3,7))
+    #plt.xlim((-2,12))
 
     plt.tight_layout()
     plt.savefig(os.path.join("files", os.getcwd(),'data','08_reporting','residuals.png'), dpi=120)

@@ -2,6 +2,7 @@
 # KEDRO PROJECT
 
 # ignore
+temp.json
 
 # ignore all local configuration
 conf/local/**
@@ -12,9 +13,9 @@ conf/local/**
 conf/**/*credentials*
 
 # ignore everything in the following folders
-#data/**
 logs/**
-data/01_raw/DATA.csv
+mlruns/**
+my_model/**
 
 # except their sub-folders
 !data/**/
@@ -24,8 +25,7 @@ data/01_raw/DATA.csv
 !.gitkeep
 
 # also keep the example dataset
-!data/01_raw/iris.csv
-
+!data/01_raw/DATA.csv
 
 ##########################
 # Common files
