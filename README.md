@@ -323,7 +323,7 @@ plot_feature_importance_img:
 
 As you can see:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/plot_in_kedro_viz.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_plot.png)
 
 
 #### Node
@@ -396,15 +396,6 @@ kedro viz
 
 To see the kedro ui go to the `270.0.0.1:4141` browser page.
 
-Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro-viz.png)
-From here we can also see and compare the experiments, that are the versions created runned the kedro project.
-
-Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments.png)
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments_0.png)
 
 ## 02 Data versioning
 
@@ -728,14 +719,6 @@ mlflow ui
 
 To see the mlflow ui go to the `270.0.0.1:5000` browser page.
 
-Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
-
-From this page we can select a single experiment and see more information about it. Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_experiment.png)
-
 ## 06 Model packaging and serving
 
 <div align="center">
@@ -871,9 +854,7 @@ or more general:
 bentoml serve
 ```
 
-After you can open a web page `127.0.0.1:3000` to have a model serving. Example:
-
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml.png)
+After you can open a web page `127.0.0.1:3000` to have a model serving.
 
 
 ## 07 Deploying pipeline
@@ -888,20 +869,24 @@ After you can open a web page `127.0.0.1:3000` to have a model serving. Example:
 
 ### 07 Structure
 
-`Dockerfile` file
+The settings are in `Dockerfile` file.
 
 For set the number port:
 
 ``` python
 EXPOSE 3030
 ```
+Note: by default the bento port is 3000, but it is also the same port as granafa, another tool used in Production phase.
 
-For set the command:
+For set the command, one of the commands:
 
 ``` python
-#CMD ["kedro", "run"]
+CMD ["kedro", "run"]
+```
+``` python
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=3030"]
 ```
+Note: if we want it to be just the kedro pipeline then we use CMD ["kedro", "run"], otherwise if we want it to also be capable of more interactivity with production pahse we use the second CMD, thus activating the apllication.
 
 ### 07 Guidelines
 
@@ -934,25 +919,18 @@ Or to run the project in a Docker environment:
 kedro docker run --image <image-name>
 ```
 
+# Getting Started
 
-# Bridge
-
-## Interactions And Communication
-
-To interact with pipeline and all step, there is run.py that answer to command line. The avaiable command line are:
+To interact with pipeline and all step, there is `run.py` which answer to command lines. It makes easier to do tasks such as opening tool gui, creating a new model and its bento, and updating dataset. The avaiable command lines are:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/run.png)
 
 
-For communication between this project and observability step, there is a [Flask](https://flask.palletsprojects.com/en/2.2.x/) application with avaible API:
+For communication between this project and production phase, there is a [Flask](https://flask.palletsprojects.com/en/2.2.x/) application with avaible API:
 
 ![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/app.png)
 
----
-
-# Getting Started
-
-To run Flask application: 
+To run Flask application, usefull for Production phase: 
 
 ```
 flask run --host=0.0.0.0 --port=3030
@@ -961,9 +939,51 @@ flask run --host=0.0.0.0 --port=3030
 ## Prerequisites
 
 ## Installation
+All necessary installations are present at the `src/requirements.txt`
 
+``` yaml
+kedro
+kedro[pandas.CSVDataSet, pandas.ExcelDataSet, pandas.ParquetDataSet]
+kedro-viz                                                          
+scikit-learn
+matplotlib
+seaborn
+numpy
+mlflow
+bentoml
+dvc
+kedro-docker
+requests
+flask
 
+```
 # Usage
+
+## Kedro Platform 
+At `270.0.0.1:4141` browser page.
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro-viz.png)
+
+From here we can also see and compare the experiments, that are the versions created runned the kedro project.
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments_0.png)
+
+## MLflow Platform 
+
+At `270.0.0.1:5000` browser page.
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
+
+From this page we can select a single experiment and see more information about it.
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_experiment.png)
+
+## BentoML Platform
+
+At web page `127.0.0.1:3000`.
+
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml.png)
 
 # Acknowledgments
 
