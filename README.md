@@ -203,7 +203,9 @@ Furthermore, every ML model specification should be versioned in a VCS to make t
 
 ### Experiments Tracking
 
-In contrast to the traditional software development process, in ML development, multiple experiments on model training can be executed in parallel before making the decision what model will be promoted to production.
+Experimentation takes place throughout the entire model development process, and usually every important decision or assumption comes with at least some experiment or previous research to justify it.
+
+Data scientists need to be able to quickly iterate through all the possibilities for each of the model building blocks.
 
 ### ML-based Software Delivery Metrics
 There are  four key metrics to measure and improve ones ML-based software delivery: 
