@@ -72,7 +72,7 @@ def main(arg: List):
             return
         update_data_url(arg[2])
     else:
-        logging.info("Error!!\n     Arg can be: 'pipeline', 'exp', 'pipeline-docker', 'run', 'dataset'.")
+        logging.info("Error!!\n     Arg can be:\n\t---------------------------------------\n\tpython run.py pipeline\n\tpython run.py exp\n\tpython run.py pipeline-docker\n\tpython run.py run\n\tpython run.py new-dataset <global_url>\n\t---------------------------------------")
         return
 
     logging.info("Terminated successfully.")
@@ -82,6 +82,6 @@ if __name__ == "__main__":
     setup_logger()
 
     if len(sys.argv) != 2 and len(sys.argv) != 3:
-        logging.info("Error!! Need args.")
+        logging.info("Error!! Need args.\n\t---------------------------------------\n\tpython run.py pipeline\n\tpython run.py exp\n\tpython run.py pipeline-docker\n\tpython run.py run\n\tpython run.py new-dataset <global_url>\n\t---------------------------------------")
     else:
         main(sys.argv)
