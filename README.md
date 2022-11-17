@@ -179,7 +179,7 @@ This stage includes the following operations:
 3. **Model Performance Logging**, every inference request results in the log-record.
 
 ## MLOps People
-Afterwards in the picture is represents a machine learning model life cycle inside an average organization today. We can observe that is involves many different people with completely different skill sets and who are often using entirely different tools.
+Afterwards the picture represents a machine learning model life cycle inside an average organization today. We can observe that it involves many different people with completely different skill sets and who are often using entirely different tools.
 
 <div align="center">
   <img width="550" alt="people" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/people.png">
