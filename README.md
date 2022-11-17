@@ -416,7 +416,7 @@ To see the kedro ui go to the `270.0.0.1:4141` browser page.
 
 :books: *Theory: versioning is essential to reproduce the experiments. Reproducibility in MLOps also involves the ability to easily rerun the exact same experiment.*
 
-Ad data versioning managenet tool is used [DVC](https://dvc.org/doc). This provide to handle large files, data sets, machine learning models, and metrics.
+Ad data versioning management tool is used [DVC](https://dvc.org/doc). This provides a way to handle large files, data sets, machine learning models, and metrics.
 
 ### 02 Structure
 
