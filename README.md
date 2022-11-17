@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img width="200" alt="logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/logo.png">
+  <img width="200" alt="logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/logo.png">
   <h1 align="center">MLOps</h1>
   <h3 align="center">To automate and encourage machine learning in enterprises!</h3>
 </div>
@@ -141,7 +141,7 @@ by [MLOps SIG](https://github.com/cdfoundation/sig-mlops/blob/main/roadmap/2020/
 
 ## Three Level
 <div align="center">
-  <img width="600" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/cycle.webp">
+  <img width="600" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/cycle.webp">
 </div>
 
 MLOps combine machine learning model, application development and operations.
@@ -182,7 +182,7 @@ This stage includes the following operations:
 Afterwards in the picture is represents a machine learning model life cycle inside an average organization today. We can observe that is involves many different people with completely different skill sets and who are often using entirely different tools.
 
 <div align="center">
-  <img width="550" alt="people" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/people.png">
+  <img width="550" alt="people" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/people.png">
 </div>
 
 ## Principles
@@ -231,24 +231,27 @@ There are  four key metrics to measure and improve ones ML-based software delive
 These are the same for capture the effectivenes of the software development and delivery of elite/high performing organisations.
 
 # About The Project
-This project puts into practice the steps of MLOps and it is complete using the Monitoring step at link [https://my_observability_project.com](https://github.com/giorgiaBertacchini/MLOps/tree/main/MLOps%20-observability).
+This project puts into practice the steps of MLOps and it is complete using the Production phase (Observability phase) at link [https://ProductionPhase_project.com](https://github.com/giorgiaBertacchini/MLOps-ProductionPhase-Slide/tree/main/MLOps%20-observability).
 
 ## Built With
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/tools.png)
+<div align="center">
+  <img width="800" alt="streamlit logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/tools.png">
+</div>
 
 
 ## Schema
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/schema.png)
-
+<div align="center">
+  <img width="800" alt="streamlit logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/schema.png">
+</div>
 
 # How it works
 
 ## 01 Workflow orchestration
 
 <div align="center">
-  <img width="270" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_logo.png">
+  <img width="270" alt="kedro logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/kedro_logo.png">
 </div>
 
 :books: *Theory: This apply CI/CD methodology. The desire in MLOps is to automate the CI/CD pipeline as far as possible.*
@@ -331,7 +334,7 @@ plot_feature_importance_img:
 
 As you can see:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_plot.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/kedro_plot.png)
 
 
 #### Node
@@ -408,7 +411,7 @@ To see the kedro ui go to the `270.0.0.1:4141` browser page.
 ## 02 Data versioning
 
 <div align="center">
-  <img width="280" alt="dvc logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/dvc_logo.png">
+  <img width="280" alt="dvc logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/dvc_logo.png">
 </div>
 
 :books: *Theory: versioning is essential to reproduce the experiments. Reproducibility in MLOps also involves the ability to easily rerun the exact same experiment.*
@@ -479,7 +482,7 @@ For more: LINK MIO FILE Part 3
 ## 03 Data analysis and manipulation
 
 <div align="center">
-  <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/pandas_logo.png">
+  <img width="300" alt="pandas logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/pandas_logo.png">
 </div>
 
 :books: *Theory: Perform exploratory data analysis (EDA) is when data scientists or analysts consider available data sources to train a ML model*
@@ -513,7 +516,7 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 ## 04 Model training
 
 <div align="center">
-  <img width="260" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/scikitlearn_logo.png">
+  <img width="260" alt="scikitlearn logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/scikitlearn_logo.png">
 </div>
 
 :books: *Theory: The data scientist implements different algorithms with the prepared data to train various ML models. In addition, you subject the implemented algorithms to hyperparameter tuning to get the best performing ML model.*
@@ -611,7 +614,7 @@ pip install -U scikit-learn
 ## 05 Experimentation management
 
 <div align="center">
-  <img width="280" alt="MLflow logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_logo.png">
+  <img width="280" alt="MLflow logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/mlflow_logo.png">
 </div>
 
 :books: *Theory: ML experiment steps are orchestrated and done automatically. Experiment environment is used in the preproduction and production environment, which is a key aspect of MLOps practice for unifying DevOps.*
@@ -626,7 +629,7 @@ MLflow and Kedro are tools complementary and not conflicting:
 * MLflow create that centralized repository of metrics and progress over time
 
 <div align="center">
-  <img width="550" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow+kedro.png">
+  <img width="550" alt="mlflow and kedro" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/mlflow+kedro.png">
 </div>
 
 ### 05 Structure
@@ -730,7 +733,7 @@ To see the mlflow ui go to the `270.0.0.1:5000` browser page.
 ## 06 Model packaging and serving
 
 <div align="center">
-  <img width="350" alt="BentoML logo" src="https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml_logo.png">
+  <img width="350" alt="BentoML logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/bentoml_logo.png">
 </div>
 
 :books: *Theory: the validated model is deployed to a target environment to serve predictions. In Continuous Deployment (CD) the deploied system should automatically deploy the model prediction service.*
@@ -931,12 +934,12 @@ kedro docker run --image <image-name>
 
 To interact with pipeline and all step, there is `run.py` which answer to command lines. It makes easier to do tasks such as opening tool gui, creating a new model and its bento, and updating dataset. The avaiable command lines are:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/run.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/run.png)
 
 
 For communication between this project and production phase, there is a [Flask](https://flask.palletsprojects.com/en/2.2.x/) application with avaible API:
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/app.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/app.png)
 
 To run Flask application, usefull for Production phase: 
 
@@ -970,28 +973,28 @@ flask
 ## Kedro Platform 
 At `270.0.0.1:4141` browser page.
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro-viz.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/kedro-viz.png)
 
 From here we can also see and compare the experiments, that are the versions created runned the kedro project.
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments.png)
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/kedro_experiments_0.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/kedro_experiments.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/kedro_experiments_0.png)
 
 ## MLflow Platform 
 
 At `270.0.0.1:5000` browser page.
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-dockerize/img_readme/mlflow-ui.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/mlflow-ui.png)
 
 From this page we can select a single experiment and see more information about it.
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/mlflow_experiment.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/mlflow_experiment.png)
 
 ## BentoML Platform
 
 At web page `127.0.0.1:3000`.
 
-![This is an image](https://github.com/giorgiaBertacchini/MLOps-kedro-auto/blob/experiment-finally/img_readme/bentoml.png)
+![This is an image](https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/bentoml.png)
 
 # Acknowledgments
 
