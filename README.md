@@ -657,16 +657,16 @@ To log file:
 ``` python
 mlflow.log_artifact(local_path=os.path.join("data", "01_raw", "DATA.csv"))
 ```
+``` python
+mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
+mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png")) 
+```
 
 To log model:
 
 ``` python
 mlflow.sklearn.log_model(sk_model=regressor, artifact_path="model")
-```
-``` python
-mlflow.log_artifact(local_path=os.path.join("data", "04_feature", "model_input_table.csv", dirname ,"model_input_table.csv"))
-mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "feature_importance.png"))
-mlflow.log_artifact(local_path=os.path.join("data", "08_reporting", "residuals.png")) 
 ```
 
 To log key-value param:
