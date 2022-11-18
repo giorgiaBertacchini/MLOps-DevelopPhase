@@ -240,6 +240,7 @@ This project puts into practice the steps of MLOps and it is complete using the 
 
 ## Schema
 
+The following image illustrates how the Develop phase works. The entire development process is managed by workflow orchestration, which in cycle performs several steps, each of which is executed by a specific tool. 
 <div align="center">
   <img width="800" alt="streamlit logo" src="https://github.com/giorgiaBertacchini/MLOps-DevelopPhase/blob/main/img_readme/schema.png">
 </div>
