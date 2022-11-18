@@ -26,6 +26,7 @@
           <li><a href="#automation">Automation</a></li>
           <li><a href="#continuous-deployment">Continuous Deployment</a></li>
           <li><a href="#versioning">Versioning</a></li>
+          <li><a href="#reproducibility">Reproducibility</a></li>
           <li><a href="#experiments-tracking">Experiments Tracking</a></li>
           <li><a href="#ml-based-software-delivery-metrics">ML-based Software Delivery Metrics</a></li>
         </ul>
@@ -94,7 +95,6 @@
             <li><a href="#save-model">Save Model</a></li>          
             <li><a href="#prediction-service">Prediction Service</a></li>
             <li><a href="#deploy-bento">Deploy Bento</a></li>
-            <li><a href="#06-guidelines">06 Guidelines</a></li>
           </ul>  
           <li><a href="#06-guidelines">06 Guidelines</a></li>
         </ul>  
@@ -106,20 +106,18 @@
       </ul>
     </li>
     <li>
-      <a href="#bridge">Bridge</a>
-      <ul>
-        <li><a href="#interactions-and-communication">Interactions And Communication</a></li>
-      </ul>
-    </li>
-    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li>
       <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#kedro-platform">Kedro Platform</a></li>
+        <li><a href="#mlflow-platform">MLflow Platform</a></li>
+        <li><a href="#bentoml-platform">BentoML Platform</a></li>
+      </ul>
     </li>
     <li>
       <a href="#acknowledgments">Acknowledgments</a>
@@ -694,7 +692,7 @@ To set key-value tag:
 mlflow.set_tag("Model Type", "Random Forest")
 ```
 
-### Before activate conda environment
+#### Before activate conda environment
 
 Need Python version 3.7. Using conda:
 
@@ -706,7 +704,7 @@ conda create -n env_name python=3.7
 conda activate env_name
 ```
 
-### How to run mlflow project
+#### How to run mlflow project
 
 You can run mlflow project with:
 
@@ -720,7 +718,7 @@ To run mlflow project in Windows, you can run mlflow project with:
 mlflow run . --experiment-name activities-example --no-conda
 ```
 
-### How to vizualize mlflow project
+#### How to vizualize mlflow project
 
 You can run ui as follows:
 
