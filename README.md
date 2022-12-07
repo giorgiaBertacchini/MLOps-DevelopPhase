@@ -515,9 +515,26 @@ def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 Examples of pandas methods:
 
 ``` python
-pd.DataFrame.drop_duplicates(inplace = True)
-pd.DataFrame.dropna(inplace = True)
-pd.DataFrame.size
+apps: pd.DataFrame
+
+# Drop duplicates
+apps.drop_duplicates(inplace = True)
+
+# Calculate the MEAN, and replace any empty values with it
+x = apps["Average Heart rate (tpm)"].mean()
+apps["Average Heart rate (tpm)"].fillna(x, inplace = True)
+
+# Clean rows that contain empty cells
+apps.dropna(inplace = True)
+```
+
+``` python
+activities: pd.DataFrame
+
+totalNumber = activities.size
+maxDistance = activities["Distance (km)"].max()
+meanAverageSpeed = activities["Average Speed (km/h)"].mean()
+minAverageHeartRate = activities["Average Heart rate (tpm)"].min()
 ```
 
 ## 04 Model training
