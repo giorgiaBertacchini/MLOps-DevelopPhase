@@ -512,6 +512,14 @@ def preprocess_activities(activities: pd.DataFrame) -> Tuple[pd.DataFrame, Dict]
 def split_data(data: pd.DataFrame, parameters: Dict) -> Tuple
 ```
 
+Examples of pandas methods:
+
+``` python
+pd.DataFrame.drop_duplicates(inplace = True)
+pd.DataFrame.dropna(inplace = True)
+pd.DataFrame.size
+```
+
 ## 04 Model training
 
 <div align="center">
